@@ -1,0 +1,66 @@
+<section id="prompt-tech" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Altı prompt texnikası - canlı söhbətdə</h2><p style="font-size:28px;color:#6B6F8A">Hər texnika üçün: nə yazırıq və AI necə cavab verir</p></div>
+<div style="flex:1"></div>
+<x-embed style="position:absolute;left:128px;top:317px;width:1664px;height:600px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#0F1129;background:transparent;overflow:hidden;display:flex;gap:28px;height:600px}
+.L{width:470px;display:flex;flex-direction:column;gap:10px}
+.t{flex:1;display:flex;align-items:center;gap:16px;border-radius:16px;padding:0 18px;background:#F7F8FC;border:2px solid transparent;transition:all .35s}
+.t .n{width:44px;height:44px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;background:#C9CCDB;transition:background .3s}
+.t b{display:block;font-size:28px}.t i{display:block;font-style:normal;font-size:24px;color:#6B6F8A}
+.t.on{background:#fff;border-color:#E4202E;transform:translateX(10px);box-shadow:0 10px 24px rgba(15,17,41,.1)}
+.t.on .n{background:linear-gradient(135deg,#E4202E,#FF7A1F)}
+.R{flex:1;display:flex;flex-direction:column;border-radius:22px;background:#F2F3F8;overflow:hidden;border:1px solid #E7E9F2}
+.top{height:56px;display:flex;align-items:center;gap:12px;padding:0 22px;background:#fff;border-bottom:1px solid #E7E9F2;font-size:24px;font-weight:700}
+.top s{width:14px;height:14px;border-radius:50%;background:#22C55E}
+.ch{flex:1;padding:22px 26px;display:flex;flex-direction:column;gap:16px}
+.u{align-self:flex-end;max-width:84%;background:linear-gradient(135deg,#E4202E,#FF7A1F);color:#fff;border-radius:20px 20px 4px 20px;padding:14px 20px;font-size:25px;line-height:1.4}
+.a{align-self:flex-start;max-width:86%;background:#fff;border-radius:20px 20px 20px 4px;padding:14px 20px;font-size:25px;line-height:1.4;box-shadow:0 6px 16px rgba(15,17,41,.06);white-space:pre-line}
+.lb{font-size:24px;font-weight:800;margin-bottom:4px;opacity:.85}
+.dots span{display:inline-block;width:10px;height:10px;margin:0 3px;border-radius:50%;background:#C9CCDB;animation:d 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+.ef{margin:0 26px 20px;border-radius:14px;padding:12px 18px;background:#FEEBD8;color:#9A3412;font-size:24px;font-weight:700;opacity:0;transition:opacity .4s}
+.in{animation:in .4s ease both}
+@keyframes in{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:none}}
+@keyframes d{50%{transform:translateY(-6px);background:#E4202E}}
+</style></head><body>
+<div class="L" id="L"></div>
+<div class="R"><div class="top"><s></s>Claude · söhbət <span style="margin-left:auto;font-size:24px;font-weight:600;color:#6B6F8A">illüstrativ</span></div><div class="ch" id="ch"></div><div class="ef" id="ef"></div></div>
+<script>
+var T=[
+["Few-shot","1-3 nümunə verin","Bu iki elanın üslubunda yeni elan yaz: [Elan 1], [Elan 2]. Vəzifə: HR Generalist.","🚀 Komandamız böyüyür! HR Generalist axtarırıq. Sizin elanlardakı kimi: qısa giriş, 5 vəzifə, 5 tələb və eyni səmimi ton.","Effekt: model üslubu və strukturu nümunədən götürür"],
+["Addım-addım","Əvvəl təhlil, sonra nəticə","İki namizədi 4 meyar üzrə müqayisə et. Əvvəl hər meyarı ayrıca təhlil et, sonra nəticə çıxar.","1) Təcrübə: A güclüdür\n2) Excel: B güclüdür\n3) Komanda işi: bərabər\n4) Motivasiya: A\nNəticə: A, çünki 4 meyardan 2-də öndədir və 1-də bərabərdir.","Effekt: tələsik yox, əsaslandırılmış cavab"],
+["Strukturlu çıxış","Cədvəl, siyahı, JSON","Nəticəni cədvəl kimi ver: Ad | Vəzifə | Bal | Qeyd","Ad | Vəzifə | Bal | Qeyd\nAysel | Satış | 4.6 | Lider potensialı\nRəşad | Analitik | 4.1 | SQL güclüdür\nNigar | HR | 3.8 | Mentor lazımdır","Effekt: nəticə birbaşa Excel-ə köçürülür"],
+["Sənəd verin","Cavab sənədə əsaslansın","📎 Siyasət.pdf - Yalnız bu sənədə əsasən cavab ver: təhsil məzuniyyəti necə rəsmiləşdirilir? Sənəddə yoxdursa, “yoxdur” yaz.","Sənədin 4.2-ci bəndinə görə: ərizə rəhbərə və HR-a təqdim olunur, sonra əmr hazırlanır. (Mənbə: səh. 3)","Effekt: halüsinasiya azalır, mənbə görünür"],
+["Sual verdirin","AI özü dəqiqləşdirsin","Yeni işçi üçün onboarding planı hazırla. Başlamazdan əvvəl mənə 3 dəqiqləşdirici sual ver.","Əlbəttə! Əvvəlcə:\n1) Hansı vəzifə üçün?\n2) Ofis, hibrid, yoxsa uzaqdan?\n3) Mentor təyin olunacaqmı?","Effekt: çatışmayan konteksti model özü soruşur"],
+["İterasiya","İlk cavab qaralamadır","Yaxşıdır, amma 2 dəfə qısalt və tonu daha səmimi et.","Budur, daha qısa və isti versiya:\n“Xoş gəldin! İlk həftən tanışlıq və öyrənmə ilə keçəcək, mentorun hər addımda yanındadır.”","Effekt: söhbət davam etdikcə nəticə yaxşılaşır"]];
+var L=document.getElementById("L"),CH=document.getElementById("ch"),EF=document.getElementById("ef");
+L.innerHTML=T.map(function(t,i){return'<div class="t" id="t'+i+'"><div class="n">'+(i+1)+'</div><div><b>'+t[0]+'</b><i>'+t[1]+'</i></div></div>'}).join("");
+function go(i){var t=T[i];
+ for(var j=0;j<6;j++)document.getElementById("t"+j).classList.toggle("on",j==i);
+ CH.innerHTML="";EF.style.opacity=0;
+ var u=document.createElement("div");u.className="u in";u.innerHTML='<div class="lb">Siz</div><span></span>';CH.appendChild(u);
+ var sp=u.querySelector("span"),n=0,s=t[2],iv=setInterval(function(){n+=2;sp.textContent=s.slice(0,n);if(n>=s.length){clearInterval(iv);
+  var a=document.createElement("div");a.className="a in";a.innerHTML='<div class="lb" style="color:#E4202E">Claude</div><div class="dots"><span></span><span></span><span></span></div>';CH.appendChild(a);
+  setTimeout(function(){a.innerHTML='<div class="lb" style="color:#E4202E">Claude</div>'+t[3].replace(/</g,"&lt;");a.classList.remove("in");void a.offsetWidth;a.classList.add("in");
+   setTimeout(function(){EF.textContent="✨ "+t[4];EF.style.opacity=1},500);
+   setTimeout(function(){go((i+1)%6)},5200)},1300)}},30)}
+go(0);
+</script></body></html></x-embed>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>PROMPT TEXNİKALARI (6 dəq). Animasiya: solda 6 texnika növbə ilə yanır, sağdakı söhbət pəncərəsində “Siz” promptu yazır, Claude cavab verir və aşağıda bu texnikanın effekti çıxır. Söhbətlər illüstrativdir (real sənəd və namizədlər deyil). Hər texnika təxminən 10 saniyə ekranda qalır.
+
+• FEW-SHOT (bir neçə nümunə) - modelə 1-3 hazır nümunə verirsiniz, o, üslubu və formatı təkrarlayır. Məs.: əvvəlki 2 uğurlu vakansiya elanınızı yapışdırıb “bu üslubda yeni elan yaz” deyin. “Zero-shot” - nümunəsiz, “few-shot” - nümunələrlə.
+• ADDIM-ADDIM (chain of thought) - “Əvvəl məlumatı təhlil et, sonra nəticə çıxar”. Mürəkkəb suallarda model tələsik nəticə əvəzinə əsaslandırılmış cavab verir və siz onun məntiqini yoxlaya bilirsiniz.
+• STRUKTURLU ÇIXIŞ - “Cədvəl kimi ver: sütunlar - …” və ya JSON. Excel-ə köçürmək, sistemə yükləmək asanlaşır. Bugünkü quizin sualları da JSON formatında idxal olunur.
+• SƏNƏD VERİN - daxili siyasəti, vəzifə təlimatını yükləyin və “yalnız bu sənədə əsasən cavab ver, yoxdursa ‘yoxdur’ yaz” deyin. Halüsinasiya xeyli azalır, cavabın mənbəyi görünür.
+• SUAL VERDİRİN - “Başlamazdan əvvəl mənə 3 dəqiqləşdirici sual ver.” Model nəyi bilmədiyini özü soruşur. Praktiki hissədə Prompt 1-də bunu istifadə edəcəyik.
+• İTERASİYA - ilk cavab qaralamadır. “Daha qısa”, “daha rəsmi”, “3-cü bəndi genişləndir”. Söhbəti davam etdirmək yeni söhbət açmaqdan daha effektivdir, çünki kontekst qalır.
+
+Ən güclü texnika çox vaxt sonuncudur: birinci cavabda dayanmayın.</aside>
+</section>

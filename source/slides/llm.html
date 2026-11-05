@@ -1,0 +1,76 @@
+<section id="llm" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">LLM nədir? Çox oxumuş “avtotamamlama”</h2><p style="font-size:28px;color:#6B6F8A">Large Language Model - Böyük Dil Modeli</p></div>
+<div style="width:700px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:34px;font-weight:700;line-height:1.3">LLM-in əsas işi: <span style="color:#E4202E">növbəti söz parçasını (tokeni) təxmin etmək.</span></p>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><p style="width:44px;font-size:28px;font-weight:800;color:#E4202E">1</p><p style="flex:1;font-size:26px;color:#2A2C45;line-height:1.4"><b>Large</b> - yüz milyardlarla parametr, trilyonlarla token mətn üzərində öyrədilib.</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><p style="width:44px;font-size:28px;font-weight:800;color:#E4202E">2</p><p style="flex:1;font-size:26px;color:#2A2C45;line-height:1.4"><b>Language</b> - dili, üslubu, faktları və məntiqi nümunələrdən mənimsəyib.</p></div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:start"><p style="width:44px;font-size:28px;font-weight:800;color:#E4202E">3</p><p style="flex:1;font-size:26px;color:#2A2C45;line-height:1.4"><b>Model</b> - bu biliklərin riyazi “sıxılmış” forması.</p></div>
+<p style="font-size:24px;color:#6B6F8A;line-height:1.4;background:#F7F8FC;border-radius:12px;padding:16px 24px">Telefonunuzdakı söz təklifinin milyon dəfə güclü versiyası. O “bilmir”, ehtimal edir - buna görə bəzən inamla səhv edir.</p>
+</div>
+<x-embed style="position:absolute;left:900px;top:330px;width:892px;height:580px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:transparent;color:#0F1129}
+.card{position:absolute;inset:0;background:#fff;border:1px solid #E7E9F2;border-radius:24px;box-shadow:0 8px 24px rgba(15,17,41,.08);padding:32px 36px;display:flex;flex-direction:column;gap:22px}
+.lbl{font-size:24px;font-weight:700;color:#6B6F8A;letter-spacing:2px;text-transform:uppercase}
+.sent{font-size:34px;font-weight:600;line-height:1.35;min-height:96px}
+.tok{display:inline-block;padding:0 6px;margin:2px 2px;border-radius:8px;background:#FDECEC;color:#B91C1C;animation:pop .35s ease}
+.cur{display:inline-block;width:14px;height:34px;background:#E4202E;vertical-align:-4px;margin-left:4px;animation:blink 1s infinite}
+.row{display:flex;align-items:center;gap:16px;height:44px}
+.w{width:220px;font-size:26px;font-weight:600}
+.bw{flex:1;height:36px;background:#F2F3F8;border-radius:10px;overflow:hidden}
+.b{height:100%;width:0;border-radius:10px;background:#F5A3A9;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.row.win .b{background:linear-gradient(90deg,#E4202E,#FF7A1F)}
+.row.win .w{color:#E4202E}
+.p{width:80px;text-align:right;font-size:26px;font-weight:700}
+.foot{font-size:24px;color:#6B6F8A}
+@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes blink{50%{opacity:0}}
+</style></head><body><div class="card">
+<div class="lbl">Model canlı “yazır”</div>
+<div class="sent" id="s"></div>
+<div id="bars"></div>
+<div class="foot">İllüstrativ ehtimallar · hər addımda ən uyğun token seçilir</div>
+</div><script>
+var base="Yaxşı HR menecer";
+var steps=[
+[["işçilərini",46],["komandasını",31],["insanları",15],["hər",8]],
+[["dinləyir",41],["inkişaf",27],["motivasiya",19],["izləyir",13]],
+[["və",52],[",",24],["ki",14],[".",10]],
+[["onlara",38],["onların",29],["vaxtında",20],["açıq",13]],
+[["dəstək",44],["rəy",30],["imkan",16],["inam",10]],
+[["olur.",48],["verir.",33],["göstərir.",12],["...",7]]];
+var S=document.getElementById("s"),B=document.getElementById("bars"),i=0,picked=[];
+function render(){S.innerHTML=base+" "+picked.map(function(t){return'<span class="tok">'+t+'</span>'}).join(" ")+'<span class="cur"></span>'}
+function step(){
+ if(i>=steps.length){setTimeout(function(){i=0;picked=[];render();B.innerHTML="";setTimeout(step,900)},2600);return}
+ var c=steps[i];B.innerHTML=c.map(function(x){return'<div class="row"><div class="w">'+x[0]+'</div><div class="bw"><div class="b"></div></div><div class="p">'+x[1]+'%</div></div>'}).join("");
+ var bs=B.querySelectorAll(".b");
+ setTimeout(function(){c.forEach(function(x,k){bs[k].style.width=(x[1]*1.9)+"%"})},60);
+ setTimeout(function(){B.firstChild.classList.add("win")},900);
+ setTimeout(function(){picked.push(c[0][0]);render();i++;setTimeout(step,500)},1700);
+}
+render();setTimeout(step,700);
+</script></body></html></x-embed>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>LLM NƏDİR (5 dəq). Ən vacib slaydlardan biri.
+
+Sadə tərif: LLM (Large Language Model - Böyük Dil Modeli) çox böyük həcmdə mətn üzərində öyrədilmiş və bir işi çox yaxşı bacaran sistemdir: verilən mətnin davamını təxmin etmək.
+
+Sağdakı animasiyanı göstərin: model “Yaxşı HR menecer” sözlərini görür və növbəti söz üçün hər variantın ehtimalını hesablayır: “işçilərini” 46%, “komandasını” 31%... Ən uyğununu seçir, cümləyə əlavə edir və eyni işi təkrar edir. Bütün uzun cavablar - esse, kod, vakansiya elanı - beləcə, token-token qurulur.
+
+Adın üç hissəsi:
+• Large (böyük) - modelin “parametrləri” var: öyrənmə zamanı tənzimlənən milyardlarla rəqəm. Onları beyindəki neyronlar arası əlaqələrə bənzətmək olar. Model internetin, kitabların, kodun böyük hissəsini “oxuyub”.
+• Language (dil) - model qrammatikanı, üslubu, faktları və hətta mühakimə nümunələrini mətnlərdən mənimsəyib.
+• Model - bütün bu biliklərin riyazi formada sıxılmış halı. Model internetə “baxmır” - bildikləri parametrlərindədir (əgər ona ayrıca axtarış aləti verilməyibsə).
+
+Niyə vacibdir? Çünki model “bilmir”, “ehtimal edir”. Əgər ən ehtimal olunan davam səhvdirsə, model onu inamla yazacaq. Buna HALÜSİNASİYA deyilir. Məsələn, mövcud olmayan qanun maddəsinə istinad edə bilər. Nəticə: AI-ın verdiyi faktları həmişə yoxlayın.
+
+Bonus: “temperatur” ayarı modelin nə qədər “cəsarətli” seçim edəcəyini müəyyən edir. Aşağı temperatur - həmişə ən ehtimal olunan söz (dəqiq, monoton). Yüksək - daha az ehtimal olunan sözlər də seçilir (yaradıcı, amma riskli).
+
+İnteraktiv: auditoriyadan cümləni tamamlamağı xahiş edin - onlar da modelin etdiyini edirlər.</aside>
+</section>

@@ -1,0 +1,73 @@
+<section id="agentic" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Agentic AI: məqsədi addım-addım icra edən AI</h2><p style="font-size:28px;color:#6B6F8A">Çatbot sual-cavabdır; agent məqsədi alır və onu addım-addım icra edir</p></div>
+<div style="display:flex;flex-direction:row;gap:48px;flex:1">
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-direction:row;gap:20px">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#F7F8FC;border-radius:16px;padding:24px"><p style="font-size:24px;font-weight:700;color:#6B6F8A;text-transform:uppercase;letter-spacing:2px">Çatbot</p><p style="font-size:24px;line-height:1.4">Siz soruşursunuz → o cavab verir. Hər addımı siz idarə edirsiniz.</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FDECEC;border-radius:16px;padding:24px"><p style="font-size:24px;font-weight:700;color:#E4202E;text-transform:uppercase;letter-spacing:2px">Agent</p><p style="font-size:24px;line-height:1.4">Siz məqsəd verirsiniz → o planlayır, alətləri işlədir, yoxlayır.</p></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;border:1px solid #E7E9F2;border-left:6px solid #E4202E;border-radius:16px;padding:28px;box-shadow:0 8px 24px rgba(15,17,41,0.06)">
+<p style="font-size:24px;font-weight:700;color:#E4202E;text-transform:uppercase;letter-spacing:2px">HR nümunəsi</p>
+<p style="font-size:28px;font-weight:600;line-height:1.4">“Bu vakansiyaya gələn 50 CV-ni oxu, meyarlara görə qiymətləndir, cədvələ yaz və ilk 5 namizəd üçün müsahibə dəvəti qaralaması hazırla.”</p>
+<p style="font-size:24px;color:#6B6F8A;line-height:1.4">Praktiki hissədə Claude da agent kimi işləyəcək: repo-nu oxuyacaq, faylları yaradacaq, kodu yazacaq.</p>
+</div>
+</div>
+<div style="width:520px"></div>
+</div>
+<x-embed style="position:absolute;left:1272px;top:317px;width:520px;height:600px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#0F1129;background:transparent;overflow:hidden}
+.card{position:absolute;inset:0;background:#fff;border:1px solid #E7E9F2;border-radius:20px;box-shadow:0 8px 24px rgba(15,17,41,.08);padding:22px;display:flex;flex-direction:column;gap:14px}
+.goal{font-size:24px;font-weight:700;color:#fff;background:linear-gradient(120deg,#E4202E,#FF7A1F);border-radius:999px;padding:10px 20px;text-align:center}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.st{font-size:24px;font-weight:700;text-align:center;background:#F7F8FC;border:2px solid #E7E9F2;border-radius:14px;padding:9px 6px;transition:all .3s}
+.st.on{background:#E4202E;border-color:#E4202E;color:#fff;transform:scale(1.05);box-shadow:0 6px 18px rgba(228,32,46,.35)}
+.log{flex:1;background:#0F1129;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.ln{font-size:24px;line-height:1.35;color:#E7E9F2;animation:in .35s ease}
+.ln.warn{color:#FFB37A}.ln.ok{color:#86EFAC}
+.cur{display:inline-block;width:12px;height:24px;background:#FF7A1F;vertical-align:-3px;animation:bl 1s infinite}
+@keyframes in{0%{opacity:0;transform:translateX(-12px)}100%{opacity:1;transform:none}}
+@keyframes bl{50%{opacity:0}}
+</style></head><body><div class="card">
+<div class="goal">🎯 Məqsəd: 50 CV → top 5</div>
+<div class="g"><div class="st" id="s0">1 · Plan</div><div class="st" id="s1">2 · Alət</div><div class="st" id="s2">3 · Yoxla</div><div class="st" id="s3">4 · Təkrar</div></div>
+<div class="log" id="l"></div>
+</div><script>
+var seq=[[0,"🧠 Plan: 4 addım qurdum",""],[1,"📄 CV oxunur… ",
+"cnt"],[1,"⚖️ Meyarlar üzrə bal",""],[1,"📊 Cədvəl hazırdır",""],[2,"🔍 2 CV-də təcrübə yoxdur","warn"],[3,"🔁 Yenidən oxunur… ✓",""],[1,"✉️ 5 dəvət qaralaması",""],[2,"⏸ İnsan təsdiqi gözlənilir","ok"]];
+var L=document.getElementById("l");
+function on(k){for(var i=0;i<4;i++)document.getElementById("s"+i).classList.toggle("on",i===k)}
+function cur(){var c=L.querySelector(".cur");if(c)c.remove();var s=document.createElement("span");s.className="cur";L.lastChild&&L.lastChild.appendChild(s)}
+function run(){L.innerHTML="";var t=600;
+ seq.forEach(function(x){setTimeout(function(){on(x[0]);var d=document.createElement("div");d.className="ln "+x[2];d.textContent=x[1];L.appendChild(d);
+  if(x[2]=="cnt"){var n=0,iv=setInterval(function(){n+=2;d.textContent=x[1]+n+"/50";if(n>=50){clearInterval(iv);d.textContent=x[1]+"50/50 ✓";cur()}},45)}cur()},t);t+=x[2]=="cnt"?2100:1300});
+ setTimeout(function(){on(-1)},t);setTimeout(run,t+3500)}
+run();
+</script></body></html></x-embed>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>AGENTIC AI (6 dəq). Bu, praktiki hissənin nəzəri əsasıdır - diqqətlə izah edin.
+
+ÇATBOT: siz soruşursunuz → o cavab verir → növbəti addımı yenə siz düşünürsünüz. Hər addımı insan idarə edir.
+
+AGENT: siz MƏQSƏD verirsiniz → AI özü:
+1) PLAN QURUR - məqsədi kiçik addımlara bölür.
+2) ALƏT İŞLƏDİR - veb-axtarış, fayl oxuma/yazma, e-poçt, təqvim, cədvəl, GitHub, verilənlər bazası. “Alət” (tool) - AI-ın xarici dünyada hərəkət etməsinə imkan verən funksiyadır.
+3) NƏTİCƏNİ YOXLAYIR - alınıbmı? Xəta var?
+4) TƏKRAR EDİR - məqsədə çatana qədər.
+Bu dövrəyə “agent loop” deyilir.
+
+Agentin tərkibi: model (beyin) + alətlər (əllər) + yaddaş/kontekst + təlimat (məqsəd və qaydalar). MCP kimi standartlar AI-ı müxtəlif alətlərə qoşmağı asanlaşdırır.
+
+Sağdakı canlı animasiya agentin işini göstərir: yuxarıdakı 4 düymə (Plan, Alət, Yoxla, Təkrar) növbə ilə yanır, aşağıdakı “jurnal”da agentin hər addımı görünür - 50 CV oxunur, problem tapılır (2 CV-də məlumat çatışmır), agent özü təkrar yoxlayır və sonda dayanıb insan təsdiqini gözləyir. Animasiya oynayarkən addımları yüksək səslə şərh edin.
+
+HR nümunəsini addımlara bölün: CV-ləri oxumaq (fayl aləti) → meyarlarla qiymətləndirmək (model) → cədvələ yazmaq (cədvəl aləti) → dəvət qaralaması (e-poçt aləti - amma göndərmədən əvvəl insan təsdiqi!).
+
+Praktiki hissədə Claude Code məhz agent kimi işləyəcək: ona “SPEC.md-yə uyğun tətbiq qur” deyəcəyik, o özü faylları oxuyacaq, kodu yazacaq, yoxlayacaq və GitHub-a göndərəcək.
+
+Risk: agent nə qədər çox alətə çıxış alırsa, səhvin təsiri bir o qədər böyük olur. Qızıl qayda: geri qaytarılmayan addımlardan (e-poçt göndərmək, məlumat silmək, ödəniş) əvvəl insan təsdiqi.</aside>
+</section>

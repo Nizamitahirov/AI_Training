@@ -1,0 +1,35 @@
+<section id="prompt-example" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Zəif prompt və güclü prompt</h2><p style="font-size:28px;color:#6B6F8A">Eyni tapşırıq - tamamilə fərqli nəticə</p></div>
+<div style="display:flex;flex-direction:row;gap:32px;flex:1">
+<div style="width:560px;display:flex;flex-direction:column;gap:20px;background:#F7F8FC;border-radius:20px;padding:36px">
+<p style="font-size:24px;font-weight:700;color:#6B6F8A;letter-spacing:2px;text-transform:uppercase">Zəif</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;line-height:1.5;color:#2A2C45">Vakansiya elanı yaz.</p>
+<div style="flex:1"></div>
+<p style="font-size:24px;color:#6B6F8A;line-height:1.45">Nəticə: ümumi, hər şirkətə uyğun gələn, şablon mətn. Vəzifə, səviyyə, dil, ton - hamısını AI təxmin edir.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#FFFFFF;border:2px solid #E4202E;border-radius:20px;padding:36px;box-shadow:0 12px 32px rgba(228,32,46,0.10)">
+<p style="font-size:24px;font-weight:700;color:#E4202E;letter-spacing:2px;text-transform:uppercase">Güclü</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.55;color:#0F1129"><span style="color:#E4202E">Rol:</span> Sən bankda işləyən təcrübəli işə qəbul mütəxəssisisən.<br><span style="color:#E4202E">Kontekst:</span> Rəqəmsal bank, gənc komanda, hibrid iş rejimi.<br><span style="color:#E4202E">Tapşırıq:</span> Junior Data Analyst üçün vakansiya elanı yaz.<br><span style="color:#E4202E">Format:</span> Başlıq, 3 cümləlik giriş, vəzifələr (5), tələblər (5), təkliflər (4).<br><span style="color:#E4202E">Məhdudiyyət:</span> Azərbaycan dilində, səmimi ton, gender-neytral dil, 250 sözə qədər.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>ZƏİF vs GÜCLÜ PROMPT (5 dəq). Canlı demo tövsiyə olunur: iki ayrı söhbətdə hər iki promptu eyni modelə verin və nəticələri yan-yana göstərin.
+
+Zəif promptda nə çatışmır? Vəzifə, səviyyə, şirkət, ton, dil, uzunluq - hamısını model təxmin etməli olur. Nəticə: hər şirkətə uyğun gələn, “şablon” mətn, çox güman ingilis dilində və ya qarışıq.
+
+Güclü promptda nə var?
+• Rol - işə qəbul mütəxəssisi
+• Kontekst - rəqəmsal bank, gənc komanda, hibrid rejim (bu, elanın tonunu və təkliflərini dəyişir)
+• Tapşırıq - konkret vəzifə: Junior Data Analyst
+• Format - bölmələr və hər bölmədə neçə bənd
+• Məhdudiyyət - dil, ton, gender-neytral dil, söz limiti
+
+Gender-neytral dil HR üçün vacib detaldır: elan müəyyən qrupu istəmədən kənarlaşdırmamalıdır.
+
+Sonra göstərin: nəticəni bəyənmədiksə, söhbəti davam etdiririk: “Təklifləri daha konkret et”, “Tələblərdən birini ‘üstünlük’ bölməsinə keçir”. Bu, növbəti slayddakı “iterasiya” texnikasına keçiddir.</aside>
+</section>

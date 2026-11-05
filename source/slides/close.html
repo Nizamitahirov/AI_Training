@@ -1,0 +1,44 @@
+<section id="close" data-transition="fade" style="background:#0F1129;color:#FFFFFF;font-family:'Montserrat', Arial, sans-serif;padding:128px;display:flex;flex-direction:row;gap:72px;align-items:center">
+<x-embed style="position:absolute;left:0px;top:0px;width:1920px;height:1080px"><!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}canvas{position:fixed;left:0;top:0;width:100%;height:100%}</style></head><body><canvas id="c"></canvas><script>
+var C=["228,32,46","255,122,31","250,204,21","255,255,255"],c=document.getElementById("c"),x=c.getContext("2d"),W,H,d=window.devicePixelRatio||1,P=[];
+function rs(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}rs();addEventListener("resize",rs);
+function mk(n){return{x:Math.random()*W,y:n?-40:Math.random()*H,s:8+Math.random()*16,v:.5+Math.random()*1.1,a:.25+Math.random()*.35,k:Math.random()*3|0,c:C[Math.random()*C.length|0],p:Math.random()*6.28,r:Math.random()*6.28,vr:(Math.random()-.5)*.06}}
+for(var i=0;i<60;i++)P.push(mk());
+function f(t){x.clearRect(0,0,W,H);P.forEach(function(p,i){p.y+=p.v;p.r+=p.vr;var px=p.x+Math.sin(t/900+p.p)*24;x.save();x.translate(px,p.y);x.rotate(p.r);x.globalAlpha=p.a;x.fillStyle=x.strokeStyle="rgb("+p.c+")";x.lineWidth=3;
+if(p.k==0){x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.fill()}else if(p.k==1){x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2)}else{x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.stroke()}
+x.restore();if(p.y>H+60)P[i]=mk(1)});requestAnimationFrame(f)}requestAnimationFrame(f);
+</script></body></html></x-embed>
+<div style="position:absolute;left:1100px;top:0px;width:820px;height:1080px;background:radial-gradient(circle at 60% 40%, rgba(228,32,46,0.40) 0%, rgba(228,32,46,0) 60%)"></div>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:16px;background:linear-gradient(90deg, #E4202E, #FF7A1F)"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:26px">
+<p style="font-size:28px;font-weight:700;color:#FF7A1F;letter-spacing:3px;text-transform:uppercase">Bu gündən yadda saxlayın</p>
+<div style="display:flex;flex-direction:row;gap:22px;align-items:start"><p style="width:64px;font-size:44px;font-weight:800;color:#E4202E">1</p><p style="flex:1;font-size:30px;font-weight:600;line-height:1.35">LLM ehtimal edir, bilmir - nəticəni həmişə yoxlayın.</p></div>
+<div style="display:flex;flex-direction:row;gap:22px;align-items:start"><p style="width:64px;font-size:44px;font-weight:800;color:#E4202E">2</p><p style="flex:1;font-size:30px;font-weight:600;line-height:1.35">Yaxşı prompt = rol + kontekst + tapşırıq + format + nümunə + məhdudiyyət.</p></div>
+<div style="display:flex;flex-direction:row;gap:22px;align-items:start"><p style="width:64px;font-size:44px;font-weight:800;color:#E4202E">3</p><p style="flex:1;font-size:30px;font-weight:600;line-height:1.35">Aydın SPEC yaza bilən HR artıq tətbiq qura bilər: Claude + GitHub + Firebase + Vercel.</p></div>
+<div style="display:flex;flex-direction:row;gap:22px;align-items:start"><p style="width:64px;font-size:44px;font-weight:800;color:#E4202E">4</p><p style="flex:1;font-size:30px;font-weight:600;line-height:1.35">İnsanlar haqqında son qərar insanda qalır.</p></div>
+<p style="font-size:24px;color:#C9CCDB;line-height:1.4">Təşəkkürlər: AmCham Azərbaycan və NextGen HR Leaders komandası 🙌</p>
+</div>
+<div style="width:600px;display:flex;flex-direction:column;gap:22px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.2);border-radius:28px;padding:40px">
+<h1 style="font-size:88px;font-weight:800;line-height:1;background:linear-gradient(120deg, #E4202E, #FF7A1F);background-clip:text;-webkit-text-fill-color:transparent">Suallar?</h1>
+<div style="display:flex;flex-direction:row;gap:22px;align-items:center">
+<div style="width:200px;height:200px;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border-radius:20px;padding:10px"><img src="/_blob/8459a8db4c033556409b2f91d727a3ce" alt="Son test üçün QR kod" style="width:180px;height:180px;object-fit:contain"></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px"><p style="font-size:26px;font-weight:800;color:#FFFFFF">Son test 📈</p><p style="font-size:24px;color:#C9CCDB;line-height:1.35">Eyni quizi yenidən keçin və irəliləyişinizi görün</p></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(255,255,255,0.2);padding-top:18px">
+<p style="font-size:28px;font-weight:800;color:#FFFFFF">Nizami Tahirov</p>
+<p style="font-size:24px;color:#C9CCDB">linkedin.com/in/nizamitahir</p>
+<p style="font-size:24px;color:#C9CCDB">nt.nizamitahir@gmail.com</p>
+</div>
+</div>
+<aside>YEKUN (10 dəq). Dörd mesajı yavaş-yavaş, bir-bir oxuyun:
+1) AI çox güclüdür, amma ehtimala əsaslanır - faktları yoxlayın.
+2) Prompt-u yaxşı menecer tapşırığı kimi yazın: altı kərpic.
+3) Bu gün gördünüz: AI ilə tətbiq qurmaq üçün proqramçı olmaq yox, problemi aydın təsvir etmək lazımdır - bu isə HR-ın güclü tərəfidir. Alətlər: Claude (SPEC), GitHub (kod), Cloud Shell + Claude Code (qurulum), Firebase (data), Vercel (yayım).
+4) İşə qəbul, qiymətləndirmə, işdən azad etmə kimi insanlara təsir edən qərarlarda AI köməkçidir, qərar verən deyil.
+
+Sonra: QR ilə quizi yenidən başladın (admin paneldən yeni oyun açın) və iştirakçılar başlanğıcla müqayisədə nəticələrini görsünlər. Bu, təlimin effektini əyani göstərir və əyləncəli finaldır.
+
+Sual-cavab: 5-7 dəqiqə. Cavabını bilmədiyiniz sual olarsa: “Gəlin bunu elə indi Claude-dan soruşaq” - bu da canlı nümayişdir.
+
+Sonda: əlaqə məlumatlarınızı göstərin, AmCham-a və iştirakçılara təşəkkür edin, qrup şəkli təklif edin.</aside>
+</section>

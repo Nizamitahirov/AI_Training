@@ -1,0 +1,26 @@
+<section id="s1" data-transition="push" style="background:linear-gradient(120deg, #E4202E 0%, #FF7A1F 100%);color:#FFFFFF;font-family:'Montserrat', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<x-embed style="position:absolute;left:0px;top:0px;width:1920px;height:1080px"><!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}canvas{position:fixed;left:0;top:0;width:100%;height:100%}</style></head><body><canvas id="c"></canvas><script>
+var C=["255,255,255","255,236,214"],c=document.getElementById("c"),x=c.getContext("2d"),W,H,d=window.devicePixelRatio||1,P=[];
+function rs(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}rs();addEventListener("resize",rs);
+function mk(n){return{x:Math.random()*W,y:n?H+40:Math.random()*H,s:6+Math.random()*34,v:.2+Math.random()*.6,a:.08+Math.random()*.22,k:Math.random()*3|0,c:C[Math.random()*C.length|0],p:Math.random()*6.28,r:Math.random()*6.28,vr:(Math.random()-.5)*.01}}
+for(var i=0;i<46;i++)P.push(mk());
+function f(t){x.clearRect(0,0,W,H);P.forEach(function(p,i){p.y-=p.v;p.r+=p.vr;var px=p.x+Math.sin(t/1800+p.p)*18;x.save();x.translate(px,p.y);x.rotate(p.r);x.globalAlpha=p.a;x.fillStyle=x.strokeStyle="rgb("+p.c+")";x.lineWidth=3;
+if(p.k==0){x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.fill()}else if(p.k==1){x.fillRect(-p.s/2,-p.s/2,p.s,p.s)}else{x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.stroke()}
+x.restore();if(p.y<-60)P[i]=mk(1)});requestAnimationFrame(f)}requestAnimationFrame(f);
+</script></body></html></x-embed>
+<p style="font-size:200px;font-weight:800;line-height:1;color:#FFFFFF;opacity:0.35">01</p>
+<h1 style="font-size:96px;font-weight:800;line-height:1.05;color:#FFFFFF">Nəzəri hissə</h1>
+<p style="font-size:36px;line-height:1.4;color:#FFFFFF;width:1400px">Süni intellekt nədir, LLM necə “düşünür”, modellər necə öyrədilir, hansını nə vaxt seçməli və ona necə düzgün tapşırıq verməli.</p>
+<div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:16px">
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">AI və növləri</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">LLM</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">Training</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">Model seçimi</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">Prompt engineering</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">Agentic AI</p>
+<p style="font-size:24px;font-weight:600;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:8px 24px">Risklər</p>
+</div>
+<aside>NƏZƏRİ HİSSƏ (80 dəq). Keçid slaydı. Deyin: “Növbəti bir saat ərzində AI-ın ‘qara qutusunu’ açacağıq. Məqsəd mühəndis olmaq deyil - məqsəd AI-dan şüurlu istifadə etmək: nə vaxt etibar etməli, nə vaxt yoxlamalı, necə düzgün tapşırıq verməli.”
+
+Hər 10–15 dəqiqədən bir auditoriyaya sual verin - slaydların qeydlərində hazır suallar var. Junior auditoriya üçün analogiyalar (restoran, iş masası, yeni işçi) ən təsirli vasitədir.</aside>
+</section>

@@ -1,0 +1,32 @@
+<section id="fix" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#C2410C;background:#FEEBD8;border-radius:999px;padding:8px 24px;text-align:center">Praktiki hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Nəsə alınmadı? Tez həll cədvəli</h2><p style="font-size:28px;color:#6B6F8A">Əksər problemləri yenə də AI-ın özü həll edir</p></div>
+<div style="background:#FFFFFF;border:1px solid #E7E9F2;border-radius:20px;padding:12px 24px;box-shadow:0 8px 24px rgba(15,17,41,0.06)">
+<table style="font-family:'Montserrat', Arial, sans-serif;font-size:24px;color:#0F1129">
+<tr><th style="width:30%;text-align:left;color:#6B6F8A">Nə görürük</th><th style="width:30%;text-align:left;color:#6B6F8A">Səbəb</th><th style="width:40%;text-align:left;color:#6B6F8A">Nə edirik</th></tr>
+<tr><td style="font-weight:700">Vercel: 404 NOT_FOUND</td><td>index.html kök qovluqda deyil</td><td>Claude Code: “index.html-i repo kökünə köçür”</td></tr>
+<tr><td style="font-weight:700">Vercel: Build failed</td><td>Lazımsız build ayarı</td><td>Framework: Other; log-u Claude Code-a ver</td></tr>
+<tr><td style="font-weight:700">Ağ, boş səhifə</td><td>JavaScript xətası</td><td>F12 → Console xətasını kopyala → Claude Code-a ver</td></tr>
+<tr><td style="font-weight:700">Dəyişiklik saytda yoxdur</td><td>Kod main-də deyil</td><td>“Dəyişiklikləri main-ə merge et və push et”</td></tr>
+<tr><td style="font-weight:700">Vercel repo-nu görmür</td><td>GitHub icazəsi yoxdur</td><td>Adjust GitHub App Permissions → repo-nu seç</td></tr>
+<tr><td style="font-weight:700">Missing or insufficient permissions</td><td>Firestore qaydaları icazə vermir</td><td>Claude Code: “Firestore rules-u yoxla və deploy et”</td></tr>
+</table>
+</div>
+<p style="font-size:28px;font-weight:600;line-height:1.4;color:#FFFFFF;background:linear-gradient(120deg, #E4202E, #FF7A1F);border-radius:16px;padding:18px 32px">Universal prompt: “Bu xəta çıxır: [mətn]. Səbəbini sadə dillə izah et, düzəlt və main-ə merge et.”</p>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>PROBLEMLƏRİN HƏLLİ (ehtiyat slayd). Hər şey qaydasında gedirsə, bu slaydı tez keçin və ya göstərməyin. Problem olarsa, burada həll var.
+
+• 404 NOT_FOUND - Vercel saytı açır, amma ana səhifəni tapmır. Çox vaxt index.html alt qovluqdadır. Claude Code-a deyin: “index.html, style.css və app.js-i repo kökünə köçür və main-ə merge et.”
+• Build failed - Vercel kodu “yığmağa” çalışıb uğursuz olub. Sadə HTML layihəsində build lazım deyil: Vercel → Project → Settings → Build & Development Settings → Framework Preset: Other. Və ya Vercel-dəki xəta log-unu kopyalayıb Claude Code-a verin.
+• Ağ, boş səhifə - adətən JavaScript xətası. Brauzerdə F12 (Mac-da Cmd+Option+I) → Console sekmesi → qırmızı xətanı kopyalayın → Claude Code-a verin.
+• Dəyişiklik görünmür - Claude Code dəyişikliyi ayrıca branch-də saxlayıb, main-ə göndərməyib. Ona “main-ə merge et və push et” deyin. Həmçinin brauzerdə səhifəni tam yeniləyin (Ctrl+Shift+R).
+• Vercel repo-nu görmür - Vercel-in GitHub tətbiqinə həmin repoya icazə verilməyib. Import ekranında “Adjust GitHub App Permissions” linki var.
+• Missing or insufficient permissions - Firestore-un təhlükəsizlik qaydaları (rules) oxumağa/yazmağa icazə vermir. Claude Code-a deyin: “Firestore rules-u SPEC-ə uyğun yoxla, düzəlt və deploy et”. Demo üçün test qaydaları kifayətdir, real datada isə giriş məhdudlaşdırılmalıdır.
+• Firebase CLI giriş istəyir - Cloud Shell-də “firebase login --no-localhost” əmrini işlədin, linki açın, Google hesabınızla təsdiqləyin və kodu terminala yapışdırın.
+
+Əsas mesaj iştirakçılara: “Proqramçı olmadan da xətaları həll edə bilərsiniz - sadəcə xətanı AI-a göstərin və izah etməsini istəyin.”</aside>
+</section>

@@ -1,0 +1,93 @@
+<section id="tokens" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Token və kontekst pəncərəsi</h2><p style="font-size:28px;color:#6B6F8A">Model mətni necə “görür” və nə qədərini eyni anda yadda saxlayır</p></div>
+<div style="flex:1"></div>
+<x-embed style="position:absolute;left:128px;top:317px;width:812px;height:600px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#0F1129;background:transparent;overflow:hidden}
+.card{position:absolute;inset:0;background:#F7F8FC;border-radius:24px;padding:32px 36px;display:flex;flex-direction:column;gap:16px}
+.lbl{font-size:24px;font-weight:700;color:#E4202E;letter-spacing:2px;text-transform:uppercase}
+.blk{display:flex;flex-direction:column;gap:10px;background:#fff;border-radius:18px;padding:18px 22px;box-shadow:0 6px 18px rgba(15,17,41,.05)}
+.lang{font-size:24px;font-weight:700;color:#6B6F8A}
+.sent{font-size:28px;font-weight:600;transition:opacity .4s}
+.chips{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.c{font-size:26px;font-weight:700;border-radius:10px;padding:3px 12px;white-space:pre;animation:pop .35s cubic-bezier(.2,1.6,.4,1)}
+.c0{background:#FDECEC;color:#B91C1C}.c1{background:#FEEBD8;color:#C2410C}.c2{background:#E7E9F2;color:#2A2C45}
+.cnt{font-size:24px;font-weight:800;color:#E4202E;min-height:30px}
+.foot{font-size:24px;color:#6B6F8A;opacity:0;transition:opacity .5s}
+@keyframes pop{0%{transform:scale(.3) translateY(10px);opacity:0}100%{transform:none;opacity:1}}
+</style></head><body><div class="card">
+<div class="lbl">Token = mətnin “kərpici”</div>
+<div class="blk"><div class="lang">Azərbaycanca</div><div class="sent" id="s0"></div><div class="chips" id="k0"></div><div class="cnt" id="n0"></div></div>
+<div class="blk"><div class="lang">İngiliscə</div><div class="sent" id="s1"></div><div class="chips" id="k1"></div><div class="cnt" id="n1"></div></div>
+<div class="foot" id="f">Eyni məna - fərqli sayda token (illüstrativ bölgü)</div>
+</div><script>
+var ex=[{t:"İşə qəbul prosesini sürətləndirək",k:["İş","ə"," qəbul"," pros","esini"," sürət","ləndir","ək"]},{t:"Speed up the hiring process",k:["Speed"," up"," the"," hiring"," process"]}];
+function $(i){return document.getElementById(i)}
+function run(){
+ for(var j=0;j<2;j++){$("s"+j).textContent=ex[j].t;$("s"+j).style.opacity=1;$("k"+j).innerHTML="";$("n"+j).textContent=""}
+ $("f").style.opacity=0;var t=900;
+ ex.forEach(function(e,j){
+  setTimeout(function(){$("s"+j).style.opacity=.35},t);
+  e.k.forEach(function(w,i){t+=330;setTimeout(function(){var s=document.createElement("span");s.className="c c"+(i%3);s.textContent=w;$("k"+j).appendChild(s);$("n"+j).textContent=(i+1)+" token"},t)});
+  t+=700;
+ });
+ setTimeout(function(){$("f").style.opacity=1},t);
+ setTimeout(run,t+4000);
+}
+run();
+</script></body></html></x-embed>
+<x-embed style="position:absolute;left:980px;top:317px;width:812px;height:600px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#0F1129;background:transparent;overflow:hidden}
+.card{position:absolute;inset:0;background:#fff;border:3px dashed #E4202E;border-radius:24px;padding:28px 32px;display:flex;flex-direction:column;gap:14px}
+.lbl{font-size:24px;font-weight:700;color:#E4202E;letter-spacing:2px;text-transform:uppercase}
+.cap{display:flex;align-items:center;gap:14px}
+.cap b{font-size:24px;width:150px}
+.bar{flex:1;height:22px;background:#F2F3F8;border-radius:11px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#FF7A1F,#E4202E);transition:width .5s}
+.list{height:372px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.it{flex:none;height:46px;display:flex;align-items:center;gap:12px;font-size:24px;font-weight:600;background:#F7F8FC;border-radius:12px;padding:0 16px;animation:in .45s cubic-bezier(.2,1.4,.4,1);transition:all .6s}
+.it.big{background:#FEEBD8}
+.it.out{background:#FDECEC;color:#B91C1C;transform:translateX(60px) rotate(4deg);opacity:0}
+.it i{font-style:normal;margin-left:auto;color:#6B6F8A;font-size:24px}
+.foot{font-size:24px;color:#6B6F8A}
+@keyframes in{0%{transform:translateY(-30px);opacity:0}100%{transform:none;opacity:1}}
+</style></head><body><div class="card">
+<div class="lbl">Kontekst pəncərəsi = iş masası</div>
+<div class="cap"><b id="p">Dolu: 0%</b><div class="bar"><div class="fill" id="b"></div></div></div>
+<div class="list" id="l"></div>
+<div class="foot" id="f">Masa dolanda köhnə məlumat “düşür”</div>
+</div><script>
+var items=[["📋","Sizin təlimatınız",12],["💬","Sual 1",8],["🤖","Cavab 1",16],["📎","Sənəd, 20 səhifə",30],["💬","Sual 2",8],["🤖","Cavab 2",16],["💬","Sual 3",8],["🤖","Cavab 3",16]];
+var L=document.getElementById("l"),P=document.getElementById("p"),B=document.getElementById("b"),F=document.getElementById("f"),fill=0,q=[];
+function upd(){var v=Math.min(fill,100);P.textContent="Dolu: "+fill+"%";B.style.width=v+"%"}
+function add(i){var d=items[i],e=document.createElement("div");e.className="it"+(d[2]>=30?" big":"");e.innerHTML=d[0]+" "+d[1]+"<i>"+d[2]+"%</i>";L.appendChild(e);q.push([e,d[2]]);fill+=d[2];upd();
+ var dl=600;while(fill>100){(function(x){setTimeout(function(){x[0].classList.add("out");x[0].querySelector("i").textContent="unudulur 💨";setTimeout(function(){x[0].remove()},650)},dl)})(q[0]);fill-=q[0][1];q.shift();dl+=700}
+ if(dl>600)setTimeout(function(){upd();F.textContent="Diqqət: ilk təlimat da “unudula” bilər!";F.style.color="#E4202E"},dl)}
+function run(){L.innerHTML="";q=[];fill=0;upd();F.textContent="Masa dolanda köhnə məlumat “düşür”";F.style.color="#6B6F8A";
+ items.forEach(function(_,i){setTimeout(function(){add(i)},800+i*1100)});setTimeout(run,800+items.length*1100+4500)}
+run();
+</script></body></html></x-embed>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>TOKEN VƏ KONTEKST (4 dəq). Hər iki panel canlı animasiyadır: solda cümlə tokenlərə bölünür, sağda “masa” dolur və köhnə məlumat düşür.
+
+TOKEN. Model hərflərlə və ya bütöv sözlərlə işləmir - mətni “token” adlanan parçalara bölür. Token bəzən bütöv sözdür (“qəbul”), bəzən söz hissəsi (“pros” + “esini”), bəzən bir şəkilçi (“ə”). Animasiyadakı bölgü illüstrativdir - hər model öz “lüğəti” ilə bölür. Animasiyada eyni məna azərbaycanca 8, ingiliscə 5 tokenə bölünür: şəkilçili dillərdə söz daha çox parçaya bölünür, yəni eyni mətn daha çox token tutur. İngilis dilində təxminən 4 simvol ≈ 1 token sayılır.
+
+Niyə HR mütəxəssisi bunu bilməlidir?
+• Qiymət tokenlə hesablanır (xüsusən API ilə işləyəndə) - daha uzun mətn = daha baha.
+• Limitlər tokenlə ölçülür - həm sual, həm cavab üçün.
+
+KONTEKST PƏNCƏRƏSİ. Modelin eyni anda “gözünün qabağında” saxlaya bildiyi mətnin ümumi həcmidir. Analogiya: iş masası. Sağdakı animasiyada masaya təlimat, suallar, cavablar və böyük sənəd düşür. Dolu göstəricisi 100%-i keçəndə ən köhnə məlumat - hətta ilk təlimatınız - masadan düşür. Real modellərin “masası” çox böyükdür, yüzlərlə səhifə sığır, amma prinsip eynidir; həmçinin model çox uzun mətnin ortasındakı detalları zəif “görə” bilər.
+
+Praktiki məsləhət:
+• Yeni mövzu üçün yeni söhbət açın.
+• Vacib təlimatı söhbətin əvvəlində və lazım gələrsə sonunda təkrarlayın.
+• Uzun sənəd verəndə ondan nəyi axtardığınızı dəqiq yazın.
+
+Vacib: model söhbətlər arasında sizi “xatırlamır” (yaddaş funksiyası ayrıca açılmayıbsa). Hər yeni söhbət - boş masadır.</aside>
+</section>

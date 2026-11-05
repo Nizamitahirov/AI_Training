@@ -1,0 +1,29 @@
+<section id="s2" data-transition="push" style="background:#0F1129;color:#FFFFFF;font-family:'Montserrat', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<x-embed style="position:absolute;left:0px;top:0px;width:1920px;height:1080px"><!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}canvas{position:fixed;left:0;top:0;width:100%;height:100%}</style></head><body><canvas id="c"></canvas><script>
+var C=["228,32,46","255,122,31","255,255,255"],c=document.getElementById("c"),x=c.getContext("2d"),W,H,d=window.devicePixelRatio||1,P=[];
+function rs(){W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}rs();addEventListener("resize",rs);
+function mk(n){return{x:Math.random()*W,y:n?H+40:Math.random()*H,s:6+Math.random()*34,v:.2+Math.random()*.6,a:.1+Math.random()*.25,k:Math.random()*3|0,c:C[Math.random()*C.length|0],p:Math.random()*6.28,r:Math.random()*6.28,vr:(Math.random()-.5)*.01}}
+for(var i=0;i<50;i++)P.push(mk());
+function f(t){x.clearRect(0,0,W,H);P.forEach(function(p,i){p.y-=p.v;p.r+=p.vr;var px=p.x+Math.sin(t/1800+p.p)*18;x.save();x.translate(px,p.y);x.rotate(p.r);x.globalAlpha=p.a;x.fillStyle=x.strokeStyle="rgb("+p.c+")";x.lineWidth=3;
+if(p.k==0){x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.fill()}else if(p.k==1){x.fillRect(-p.s/2,-p.s/2,p.s,p.s)}else{x.beginPath();x.arc(0,0,p.s/2,0,6.28);x.stroke()}
+x.restore();if(p.y<-60)P[i]=mk(1)});requestAnimationFrame(f)}requestAnimationFrame(f);
+</script></body></html></x-embed>
+<div style="position:absolute;left:0px;top:0px;width:1920px;height:16px;background:linear-gradient(90deg, #E4202E, #FF7A1F)"></div>
+<p style="font-size:200px;font-weight:800;line-height:1;color:#E4202E">02</p>
+<h1 style="font-size:96px;font-weight:800;line-height:1.05;color:#FFFFFF">Praktiki hissə</h1>
+<p style="font-size:36px;line-height:1.4;color:#C9CCDB;width:1400px">Bir sətir kod yazmadan HR tətbiqi qururuq: AI spesifikasiyanı yazır, Claude kodu yazır, Vercel onu internetə çıxarır.</p>
+<div style="display:flex;flex-direction:row;align-items:center;gap:20px">
+<p style="font-size:28px;font-weight:700;color:#FFFFFF;background:#2A2C45;border-radius:999px;padding:12px 28px">SPEC.md</p>
+<x-shape kind="arrow-right" style="width:48px;height:24px;background:#FF7A1F"></x-shape>
+<p style="font-size:28px;font-weight:700;color:#FFFFFF;background:#2A2C45;border-radius:999px;padding:12px 28px">GitHub</p>
+<x-shape kind="arrow-right" style="width:48px;height:24px;background:#FF7A1F"></x-shape>
+<p style="font-size:28px;font-weight:700;color:#FFFFFF;background:#2A2C45;border-radius:999px;padding:12px 28px">Claude</p>
+<x-shape kind="arrow-right" style="width:48px;height:24px;background:#FF7A1F"></x-shape>
+<p style="font-size:28px;font-weight:700;color:#FFFFFF;background:linear-gradient(120deg, #E4202E, #FF7A1F);border-radius:999px;padding:12px 28px">Vercel · canlı</p>
+</div>
+<aside>PRAKTİKİ HİSSƏ (65 dəq). Keçid. Deyin: “İndi nəzəriyyəni işə salırıq. Növbəti saatda prompt engineering-i, agentic AI-ı və model seçimini canlı görəcəksiniz - və sonda telefonunuzda açacağınız real tətbiq olacaq.”
+
+Vaxt planı: alətlər və sistem (8 dəq) → layihə seçimi (5 dəq) → Prompt 1 / SPEC (10 dəq) → GitHub + Claude Code (15 dəq) → Vercel (5 dəq) → təkmilləşdirmə (10 dəq) → quizin pərdəarxası və ev tapşırığı (7 dəq) → ehtiyat vaxt (5 dəq).
+
+Təlimdən əvvəl yoxlayın: Claude, GitHub, Google (Firebase + Cloud Shell), Vercel hesablarında daxil olmusunuz; Firebase layihəsi yaradılıb; internet sabitdir; “Praktiki paket” faylı açıqdır (hazır promptlar və ehtiyat SPEC orada).</aside>
+</section>

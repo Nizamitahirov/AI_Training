@@ -1,0 +1,71 @@
+<section id="prompt-anatomy" data-transition="fade" style="background:#FFFFFF;color:#0F1129;font-family:'Montserrat', Arial, sans-serif;padding:176px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<div style="position:absolute;left:128px;top:56px;width:900px;height:64px;display:flex;flex-direction:row;align-items:center;gap:20px">
+<div style="width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg, #E4202E, #FF7A1F);display:flex;align-items:center;justify-content:center"><p style="font-size:24px;font-weight:800;color:#FFFFFF">AI</p></div>
+<div style="display:flex;flex-direction:column"><p style="font-size:24px;font-weight:700;line-height:1.2">NextGen HR Leaders</p><p style="font-size:24px;color:#6B6F8A;line-height:1.2">AmCham Azərbaycan · Süni İntellekt təlimi</p></div>
+</div>
+<p style="position:absolute;left:1492px;top:64px;width:300px;font-size:24px;font-weight:600;color:#E4202E;background:#FDECEC;border-radius:999px;padding:8px 24px;text-align:center">Nəzəri hissə</p>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="font-size:56px;font-weight:800;line-height:1.1">Yaxşı promptun anatomiyası</h2><p style="font-size:28px;color:#6B6F8A">Altı kərpic - və prompt gözümüzün qarşısında qurulur</p></div>
+<div style="flex:1"></div>
+<x-embed style="position:absolute;left:128px;top:313px;width:1664px;height:504px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#0F1129;background:transparent;overflow:hidden;display:flex;gap:32px;height:504px}
+.L{width:560px;display:flex;flex-direction:column;gap:10px}
+.e{flex:1;display:flex;align-items:center;gap:16px;border-radius:16px;padding:0 18px;background:#F7F8FC;border:2px solid transparent;transition:all .35s}
+.e .n{width:46px;height:46px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;background:#C9CCDB;transition:background .35s}
+.e b{display:block;font-size:28px}
+.e i{display:block;font-style:normal;font-size:24px;color:#6B6F8A}
+.e.on{background:#fff;border-color:var(--c);transform:translateX(10px);box-shadow:0 10px 24px rgba(15,17,41,.10)}
+.e.on .n,.e.done .n{background:var(--c)}
+.R{flex:1;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#0F1129;box-shadow:0 16px 40px rgba(15,17,41,.25)}
+.bar{height:46px;display:flex;align-items:center;gap:8px;padding:0 18px;background:#1C1F3A}
+.bar s{width:13px;height:13px;border-radius:50%;background:#E4202E}.bar s:nth-child(2){background:#FACC15}.bar s:nth-child(3){background:#22C55E}
+.bar span{margin-left:14px;font-size:24px;color:#C9CCDB}
+.ed{flex:1;padding:18px 24px;display:flex;flex-direction:column;gap:8px;font-family:"Cascadia Code",Consolas,"Courier New",monospace;font-size:24px;line-height:1.4;color:#E7E9F2}
+.sg{border-left:5px solid var(--c);padding-left:12px}
+.sg.in{animation:in .3s ease}
+.cur{display:inline-block;width:12px;height:26px;background:#FF7A1F;vertical-align:-4px;margin-left:2px;animation:bl 1s infinite}
+.ft{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:#1C1F3A}
+.ft span{font-size:24px;color:#C9CCDB}
+.go{font-size:24px;font-weight:800;color:#fff;background:linear-gradient(120deg,#E4202E,#FF7A1F);border-radius:999px;padding:6px 22px;opacity:.35;transition:all .3s}
+.go.ok{opacity:1;animation:pu 1s ease-in-out infinite}
+@keyframes in{0%{opacity:0;transform:translateX(-10px)}100%{opacity:1;transform:none}}
+@keyframes bl{50%{opacity:0}}
+@keyframes pu{50%{box-shadow:0 0 0 10px rgba(255,122,31,.25)}}
+</style></head><body>
+<div class="L" id="L"></div>
+<div class="R"><div class="bar"><s></s><s></s><s></s><span>Yeni söhbət · prompt</span></div><div class="ed" id="ed"></div><div class="ft"><span id="st">Prompt qurulur…</span><div class="go" id="go">Göndər ▶</div></div></div>
+<script>
+var E=[
+["Rol","Kim kimi danışsın?","#E4202E","#FF8A92","Sən təcrübəli HR biznes partnyorusan."],
+["Kontekst","Vəziyyət nədir?","#FF7A1F","#FFB07A","Şirkət: bank, 300 işçi. Satış komandası üçün illik qiymətləndirmə hazırlayırıq."],
+["Tapşırıq","Konkret nə lazımdır?","#D97706","#FCD34D","Satış meneceri vəzifəsi üçün 5 KPI təklif et."],
+["Format","Nəticə necə görünsün?","#059669","#6EE7B7","Cədvəl kimi ver: KPI · düstur · hədəf · çəki %."],
+["Nümunə","Yaxşı nəticə hansıdır?","#2563EB","#93C5FD","Nümunə sətir: Aylıq satış həcmi · fakt/plan · 100% · 30%"],
+["Məhdudiyyət","Nədən qaçmalı?","#7C3AED","#C4B5FD","Azərbaycan dilində, jarqonsuz, maksimum 1 səhifə."]];
+var L=document.getElementById("L"),ED=document.getElementById("ed"),GO=document.getElementById("go"),ST=document.getElementById("st");
+L.innerHTML=E.map(function(e,i){return'<div class="e" id="e'+i+'" style="--c:'+e[2]+'"><div class="n">'+(i+1)+'</div><div><b>'+e[0]+'</b><i>'+e[1]+'</i></div></div>'}).join("");
+function cur(){var c=ED.querySelector(".cur");if(c)c.remove()}
+function step(i){
+ for(var j=0;j<6;j++){var x=document.getElementById("e"+j);x.classList.toggle("on",j==i);x.classList.toggle("done",j<i)}
+ if(i>=6){cur();GO.classList.add("ok");ST.textContent="✓ Bütün 6 kərpic yerindədir";setTimeout(run,4500);return}
+ var e=E[i],d=document.createElement("div");d.className="sg in";d.style.setProperty("--c",e[2]);d.style.color=e[3];ED.appendChild(d);
+ var n=0,s=e[4],t=setInterval(function(){n+=2;cur();d.textContent=s.slice(0,n);var c=document.createElement("span");c.className="cur";d.appendChild(c);
+  if(n>=s.length){clearInterval(t);setTimeout(function(){step(i+1)},900)}},35)}
+function run(){ED.innerHTML="";GO.classList.remove("ok");ST.textContent="Prompt qurulur…";setTimeout(function(){step(0)},600)}
+run();
+</script></body></html></x-embed>
+<p style="font-size:28px;font-weight:600;line-height:1.4;color:#FFFFFF;background:linear-gradient(120deg, #E4202E, #FF7A1F);border-radius:16px;padding:18px 32px">Qızıl qayda: AI sizin başınızdakını oxuya bilmir - nə qədər konkret, o qədər yaxşı.</p>
+<p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
+<aside>PROMPTUN ANATOMİYASI (5 dəq). Animasiya: solda 6 element növbə ilə yanır, sağdakı “redaktor” pəncərəsində həmin elementin mətni öz rəngində yazılır. Altı kərpic tamamlananda “Göndər ▶” düyməsi döyünməyə başlayır. Dövrə təxminən 30 saniyədir, sonra yenidən başlayır. Hər element yazılarkən onun nə üçün lazım olduğunu deyin.
+
+1) ROL - modelə kimin “gözü ilə” baxmalı olduğunu deyir. “Təcrübəli HR biznes partnyoru” ilə “hüquqşünas” eyni suala fərqli cavab verəcək. Rol üslubu, terminologiyanı və diqqət mərkəzini dəyişir.
+2) KONTEKST - vəziyyət, auditoriya, məqsəd. Model şirkətinizi tanımır. Sektor, ölçü, mədəniyyət, problem - nə qədər çox kontekst, o qədər az “ümumi” cavab.
+3) TAPŞIRIQ - konkret fel ilə: “yaz”, “müqayisə et”, “5 variant təklif et”, “xülasə et”. Bir promptda bir əsas tapşırıq.
+4) FORMAT - nəticə necə görünməlidir: cədvəl, siyahı, e-poçt, 3 abzas, sütun adları. Bu, sonradan redaktə vaxtını kəskin azaldır.
+5) NÜMUNƏ - bəyəndiyiniz nümunə göstərmək ən güclü üsuldur. “Bu üslubda yaz: …”
+6) MƏHDUDİYYƏT - dil, uzunluq, ton, nədən qaçmalı (“jarqon yox”, “gender-neytral dil”, “qanun maddəsinə istinad etmə”).
+
+Bütün 6 element hər dəfə lazım deyil. Qısa sual üçün 2–3 kifayətdir; vacib, təkrar istifadə olunan tapşırıq üçün hamısını yazın və promptu şablon kimi saxlayın.
+
+Mini məşq: “Satış meneceri üçün KPI” promptunu auditoriya ilə birlikdə 6 elementlə qurun.</aside>
+</section>
