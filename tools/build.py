@@ -10,6 +10,9 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "source"
 OUT = ROOT / "assets" / "slides.js"
 
+# Animations wait this many times longer between their steps (1.3 = +30%)
+TIME_SCALE = 1.3
+
 # Uploaded images in the original deck -> files in assets/img
 BLOBS = {
     "a6a7d053eccca6f184a25c4faeb69a0f": "assets/img/nizami.jpg",
@@ -52,10 +55,13 @@ def build():
 
     def embed_sub(m):
         style, doc = m.group(1), m.group(2)
+        steps = ' data-steps="1"' if "/*STEPPABLE*/" in doc else ""
+        # Slow every timer-based animation down by TIME_SCALE (typing/counter intervals keep their speed)
+        doc = doc.replace("<head>", "<head><script>(function(){var s=window.setTimeout;window.setTimeout=function(f,d){return s(f,(+d||0)*%s)}})();</script>" % TIME_SCALE, 1)
         embeds.append(doc)
-        return ('<iframe class="xe" data-e="%d" style="%s;border:0;background:transparent" '
+        return ('<iframe class="xe"%s data-e="%d" style="%s;border:0;background:transparent" '
                 'sandbox="allow-scripts" scrolling="no" tabindex="-1" title="animasiya"></iframe>'
-                % (len(embeds) - 1, style))
+                % (steps, len(embeds) - 1, style))
 
     def icon_sub(m):
         name, style = m.group(1), m.group(2)

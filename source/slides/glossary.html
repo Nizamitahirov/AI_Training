@@ -45,16 +45,17 @@ var T=[
 ["🔗","MCP","AI-ı Drive, Slack, CRM kimi alətlərə qoşan açıq standart.","Claude-u Google Drive-a qoşursunuz və o, “Vəzifə təlimatları” qovluğundakı faylları özü açıb oxuyur - siz heç nə yükləmirsiniz."]];
 var G=document.getElementById("g"),L=document.getElementById("l"),EM=document.getElementById("em"),EX=document.getElementById("ex"),TM=document.getElementById("tm"),tt;
 G.innerHTML=T.map(function(x,i){return'<div class="ch" id="c'+i+'"><i>'+x[0]+'</i>'+x[1]+'</div>'}).join("");
-function go(i){var x=T[i];clearInterval(tt);
+var cur=0,tm;function go(i){cur=i;clearTimeout(tm);var x=T[i];clearInterval(tt);
  for(var j=0;j<10;j++){var c=document.getElementById("c"+j);c.classList.toggle("on",j==i);c.classList.toggle("seen",j<i)}
  L.innerHTML='<div class="k">TERMİN '+(i+1)+' / 10</div><div class="t">'+x[1]+'</div><div class="d">'+x[2]+'</div>';L.className="l in";void L.offsetWidth;
  EM.innerHTML='<span>'+x[0]+'</span>NÜMUNƏ';
  var s=x[3],n=0;EX.innerHTML='<span class="cur"></span>';
  tt=setInterval(function(){n+=2;EX.innerHTML=s.slice(0,n)+'<span class="cur"></span>';if(n>=s.length)clearInterval(tt)},28);
  var D=Math.max(7000,s.length*14+4500);
- TM.style.transition="none";TM.style.width="0";void TM.offsetWidth;TM.style.transition="width "+D+"ms linear";TM.style.width="100%";
- setTimeout(function(){go((i+1)%10)},D)}
+ TM.style.transition="none";TM.style.width="0";void TM.offsetWidth;TM.style.transition="width "+(D*1.3)+"ms linear";TM.style.width="100%";
+ tm=setTimeout(function(){go((i+1)%10)},D)}
 go(0);
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")go((cur+9)%10);if(c==="next")go((cur+1)%10)});/*STEPPABLE*/
 </script></body></html></x-embed>
 <p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
 <aside>AI LÜĞƏTİ (5 dəq). Animasiya: yuxarıda 10 termin var, növbə ilə yanır. Aşağıdakı kartın solunda terminin tərifi, sağında isə HR-dan nümunə “yazılır”. Hər termin təxminən 7 saniyə ekranda qalır, tam dövrə təxminən 75 saniyədir. Nümunələri yüksək səslə oxumaq əvəzinə öz sözlərinizlə danışın.

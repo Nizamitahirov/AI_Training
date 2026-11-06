@@ -42,12 +42,13 @@ var S=[
 var W=document.body.clientWidth,L0=110,R0=W-110,ST=document.getElementById("sts"),PR=document.getElementById("pr"),WK=document.getElementById("wk"),CD=document.getElementById("cd");
 function x(i){return L0+(R0-L0)*i/5}
 ST.innerHTML=S.map(function(s,i){return'<div class="st" id="s'+i+'" style="left:'+x(i)+'px"><div class="ic">'+s[0]+'</div><b>'+s[1]+'</b></div>'}).join("");
-function go(i){var s=S[i];
+var cur=0,tm;function go(i){cur=i;clearTimeout(tm);var s=S[i];
  for(var j=0;j<6;j++){var e=document.getElementById("s"+j);e.classList.toggle("on",j==i);e.classList.toggle("done",j<i)}
  PR.style.width=(x(i)-80)+"px";WK.style.left=(x(i)+70)+"px";
  CD.innerHTML='<div class="c c1 in"><h4>😩 Problem</h4><p>'+s[2]+'</p></div><div class="c c2 in"><h4>🤖 AI ilə</h4><p>'+s[3]+'</p></div><div class="c c3 in"><h4>⌨️ Hazır prompt</h4><p>'+s[4]+'</p></div>';
- setTimeout(function(){go((i+1)%6)},8000)}
+ tm=setTimeout(function(){go((i+1)%6)},8000)}
 go(0);
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")go((cur+5)%6);if(c==="next")go((cur+1)%6)});/*STEPPABLE*/
 </script></body></html></x-embed>
 <p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
 <aside>HR-DA AI (5 dəq). Animasiya: yuxarıda işçinin yolu - 6 dayanacaq. Kiçik adam bir dayanacaqdan digərinə keçir, aşağıda üç kart açılır: Problem, AI ilə həll, Hazır prompt. Hər dayanacaq 8 saniyədir. Hazır promptları iştirakçılar telefonla şəklini çəkə bilər - deyin ki, sabah işdə sınasınlar.

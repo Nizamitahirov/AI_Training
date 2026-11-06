@@ -32,12 +32,13 @@ var R=document.getElementById("r"),h="";
 N.forEach(function(x,i){h+='<div class="n" id="n'+i+'"><div class="e">'+x[0]+'</div><div class="t">'+x[1]+'</div><div class="d">'+x[2]+'</div><div class="a">'+x[3]+'</div></div>';if(i<5)h+='<div class="ar" id="a'+i+'">➜</div>'});
 R.innerHTML=h;var P=document.getElementById("p"),G=document.getElementById("g");
 function cx(i){var e=document.getElementById("n"+i);return e.offsetLeft+e.offsetWidth/2}
-function go(i){
+var cur=0,tm;function go(i){cur=i;clearTimeout(tm);
  for(var j=0;j<6;j++){var e=document.getElementById("n"+j);e.classList.toggle("on",j==i);e.classList.toggle("done",j<i)}
  for(j=0;j<5;j++)document.getElementById("a"+j).classList.toggle("on",j<i);
  P.style.left=cx(i)+"px";P.textContent=K[i];G.style.width=cx(i)+"px";
- setTimeout(function(){go(i<5?i+1:0)},i<5?1500:3200)}
-setTimeout(function(){go(0)},300);
+ tm=setTimeout(function(){go(i<5?i+1:0)},i<5?1500:3200)}
+tm=setTimeout(function(){go(0)},300);
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")go(cur>0?cur-1:0);if(c==="next")go(cur<5?cur+1:0)});/*STEPPABLE*/
 </script></body></html></x-embed>
 <div style="display:flex;flex-direction:row;gap:24px">
 <div style="flex:1;display:flex;flex-direction:row;gap:18px;align-items:start;background:rgba(255,255,255,0.06);border-radius:16px;padding:24px 28px"><p style="font-size:36px;line-height:1">🔁</p><p style="flex:1;font-size:24px;color:#E7E9F2;line-height:1.45"><b>Dəyişiklik dövrü:</b> Claude Code-a “düyməni göy et” deyirsiniz → kod dəyişir → GitHub-a yazılır → Vercel 1–2 dəqiqəyə saytı yeniləyir.</p></div>

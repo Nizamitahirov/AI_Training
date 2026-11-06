@@ -41,16 +41,17 @@ var T=[
 ["İterasiya","İlk cavab qaralamadır","Yaxşıdır, amma 2 dəfə qısalt və tonu daha səmimi et.","Budur, daha qısa və isti versiya:\n“Xoş gəldin! İlk həftən tanışlıq və öyrənmə ilə keçəcək, mentorun hər addımda yanındadır.”","Effekt: söhbət davam etdikcə nəticə yaxşılaşır"]];
 var L=document.getElementById("L"),CH=document.getElementById("ch"),EF=document.getElementById("ef");
 L.innerHTML=T.map(function(t,i){return'<div class="t" id="t'+i+'"><div class="n">'+(i+1)+'</div><div><b>'+t[0]+'</b><i>'+t[1]+'</i></div></div>'}).join("");
-function go(i){var t=T[i];
+var cur=0,gen=0;function go(i){cur=i;var g=++gen;var t=T[i];
  for(var j=0;j<6;j++)document.getElementById("t"+j).classList.toggle("on",j==i);
  CH.innerHTML="";EF.style.opacity=0;
  var u=document.createElement("div");u.className="u in";u.innerHTML='<div class="lb">Siz</div><span></span>';CH.appendChild(u);
- var sp=u.querySelector("span"),n=0,s=t[2],iv=setInterval(function(){n+=2;sp.textContent=s.slice(0,n);if(n>=s.length){clearInterval(iv);
+ var sp=u.querySelector("span"),n=0,s=t[2],iv=setInterval(function(){if(g!==gen){clearInterval(iv);return}n+=2;sp.textContent=s.slice(0,n);if(n>=s.length){clearInterval(iv);
   var a=document.createElement("div");a.className="a in";a.innerHTML='<div class="lb" style="color:#E4202E">Claude</div><div class="dots"><span></span><span></span><span></span></div>';CH.appendChild(a);
-  setTimeout(function(){a.innerHTML='<div class="lb" style="color:#E4202E">Claude</div>'+t[3].replace(/</g,"&lt;");a.classList.remove("in");void a.offsetWidth;a.classList.add("in");
-   setTimeout(function(){EF.textContent="✨ "+t[4];EF.style.opacity=1},500);
-   setTimeout(function(){go((i+1)%6)},5200)},1300)}},30)}
+  setTimeout(function(){if(g!==gen)return;a.innerHTML='<div class="lb" style="color:#E4202E">Claude</div>'+t[3].replace(/</g,"&lt;");a.classList.remove("in");void a.offsetWidth;a.classList.add("in");
+   setTimeout(function(){if(g!==gen)return;EF.textContent="✨ "+t[4];EF.style.opacity=1},500);
+   setTimeout(function(){if(g===gen)go((i+1)%6)},5200)},1300)}},30)}
 go(0);
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")go((cur+5)%6);if(c==="next")go((cur+1)%6)});/*STEPPABLE*/
 </script></body></html></x-embed>
 <p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
 <aside>PROMPT TEXNİKALARI (6 dəq). Animasiya: solda 6 texnika növbə ilə yanır, sağdakı söhbət pəncərəsində “Siz” promptu yazır, Claude cavab verir və aşağıda bu texnikanın effekti çıxır. Söhbətlər illüstrativdir (real sənəd və namizədlər deyil). Hər texnika təxminən 10 saniyə ekranda qalır.

@@ -1,5 +1,5 @@
 /* NextGen HR Leaders · AI training deck player
-   Keyboard: ← → Space PgUp PgDn Home End, numbers+Enter, F, O/G, S, P, R, B, ?, Esc */
+   Keyboard: ← → Space PgUp PgDn Home End, ↑ ↓ (animation step), numbers+Enter, F, O/G, S, P, R, B, ?, Esc */
 (function () {
   "use strict";
   var D = window.DECK, N = D.slides.length;
@@ -16,6 +16,14 @@
       e.style.setProperty("--bi-delay", (0.25 + n * 0.15) + "s");
     });
     node.querySelectorAll("iframe.xe").forEach(function (f) { f.style.pointerEvents = "none"; });
+    /* Paint order like the Slides runtime: pinned children before the first flow child sit
+       behind the flow content, pinned children after it sit on top. */
+    var seenFlow = false;
+    Array.prototype.forEach.call(node.children, function (c) {
+      var pinned = (c.style.position === "absolute");
+      if (!pinned) { seenFlow = true; if (!c.style.position) c.style.position = "relative"; c.style.zIndex = "1"; }
+      else c.style.zIndex = seenFlow ? "2" : "0";
+    });
     return node;
   }
   function startEmbeds(node) { node.querySelectorAll("iframe.xe").forEach(function (f) { f.srcdoc = D.embeds[+f.getAttribute("data-e")]; }); }
@@ -64,6 +72,18 @@
     }
     try { history.replaceState(null, "", location.pathname + location.search + "#" + (i + 1)); } catch (e) {}
     if (chan && !opts.remote) chan.postMessage({ i: i });
+  }
+
+  /* step inside an auto-advancing animation (↑ previous / ↓ next) */
+  function stepFrames() {
+    var host = isPresenter ? document.getElementById("pv-cur-stage") : slideEls[cur];
+    return host ? Array.prototype.slice.call(host.querySelectorAll("iframe.xe[data-steps]")) : [];
+  }
+  function step(cmd, remote) {
+    var fs = stepFrames();
+    if (!fs.length) { if (!remote) go(cur + (cmd === "next" ? 1 : -1)); return; }
+    fs.forEach(function (f) { if (f.contentWindow) f.contentWindow.postMessage({ cmd: cmd }, "*"); });
+    if (chan && !remote) chan.postMessage({ step: cmd, i: cur });
   }
 
   function restartCurrent() {
@@ -155,10 +175,12 @@
       return;
     }
     switch (k) {
-      case "ArrowRight": case "ArrowDown": case "PageDown": case " ": case "Enter": case "l": case "L":
+      case "ArrowRight": case "PageDown": case " ": case "Enter": case "l": case "L":
         go(cur + 1); e.preventDefault(); break;
-      case "ArrowLeft": case "ArrowUp": case "PageUp": case "Backspace": case "h": case "H":
+      case "ArrowLeft": case "PageUp": case "Backspace": case "h": case "H":
         go(cur - 1); e.preventDefault(); break;
+      case "ArrowUp": case "[": case "z": case "Z": step("prev"); e.preventDefault(); break;
+      case "ArrowDown": case "]": case "x": case "X": step("next"); e.preventDefault(); break;
       case "Home": go(0); e.preventDefault(); break;
       case "End": go(N - 1); e.preventDefault(); break;
       case "f": case "F": fullscreen(); break;
@@ -198,7 +220,11 @@
     document.getElementById("help").addEventListener("click", function () { toggle("show-help", false); });
   }
 
-  if (chan) chan.onmessage = function (m) { if (m.data && typeof m.data.i === "number") go(m.data.i, { remote: true }); };
+  if (chan) chan.onmessage = function (m) {
+    var d = m.data || {};
+    if (d.step) { if (d.i === cur) step(d.step, true); return; }
+    if (typeof d.i === "number") go(d.i, { remote: true });
+  };
 
   addEventListener("resize", fit);
   addEventListener("hashchange", function () { var h = parseInt(location.hash.slice(1), 10); if (h) go(h - 1); });

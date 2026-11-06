@@ -39,10 +39,11 @@ var M=[
 var G=document.getElementById("g");
 G.innerHTML=M.map(function(m,i){return'<div class="c" id="c'+i+'" style="--a:'+m[7]+'"><span class="bd '+m[4]+'">'+m[3]+'</span><div class="h"><div class="av">'+m[0]+'</div><div><div class="n">'+m[1]+'</div><div class="co">'+m[2]+'</div></div></div><div class="tg">'+m[5].map(function(t){return"<span>"+t+"</span>"}).join("")+'</div><div class="hr">'+m[6]+'</div></div>'}).join("");
 function show(){for(var i=0;i<6;i++)(function(i){var c=document.getElementById("c"+i);c.classList.remove("show","on");setTimeout(function(){c.classList.add("show")},200+i*220)})(i)}
-function spot(i){for(var j=0;j<6;j++)document.getElementById("c"+j).classList.toggle("on",j==i);
- if(i<5)setTimeout(function(){spot(i+1)},2800);else setTimeout(function(){spot(-1);setTimeout(run,600)},2800)}
+var cur=-1,gen=0;function spot(i){var g=++gen;cur=i;for(var j=0;j<6;j++)document.getElementById("c"+j).classList.toggle("on",j==i);
+ if(i<0)return;if(i<5)setTimeout(function(){if(g===gen)spot(i+1)},2800);else setTimeout(function(){if(g!==gen)return;spot(-1);setTimeout(run,600)},2800)}
 function run(){show();setTimeout(function(){spot(0)},1800)}
 run();
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")spot(Math.max(0,cur-1));if(c==="next")spot(Math.min(5,cur+1))});/*STEPPABLE*/
 </script></body></html></x-embed>
 <p style="position:absolute;left:128px;bottom:56px;width:1300px;font-size:24px;color:#6B6F8A">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
 <aside>MODEL AİLƏLƏRİ (4 dəq). Animasiya: 6 kart bir-bir “düşür”, sonra işıq hər kartın üzərində 3 saniyə dayanır. Hər kartda: şirkət və ölkə, güclü tərəflər (etiketlər), tip nişanı (Qapalı / Açıq çəki / Qarışıq) və HR üçün nə ilə faydalı olduğu. Versiya nömrələri ayda bir dəyişir - ailələri və onların “xarakterini” yadda saxlamaq kifayətdir.

@@ -56,15 +56,16 @@ var D=[
 var N=document.getElementById("nodes"),W=document.body.clientWidth,L=60,R=W-60,h="";
 D.forEach(function(d,i){h+='<div class="nd" id="n'+i+'" style="left:'+(L+(R-L)*i/7)+'px"><div class="dt"></div><div class="yr">'+d[0]+'</div></div>'});N.innerHTML=h;
 var HD=document.getElementById("hd"),CO=document.getElementById("cols"),PR=document.getElementById("pr"),TM=document.getElementById("tm"),DUR=8500;
-function go(i){var d=D[i];
+var cur=0,tm;function go(i){cur=i;clearTimeout(tm);var d=D[i];
  for(var j=0;j<8;j++){var e=document.getElementById("n"+j);e.classList.toggle("on",j==i);e.classList.toggle("done",j<i)}
  PR.style.width=((R-L)*i/7+20)+"px";
  HD.innerHTML='<div class="em">'+d[1]+'</div><div class="big">'+d[0]+'</div><div class="tt">'+d[2]+'</div>';HD.className="hd in";
  CO.innerHTML='<div class="c c1 in"><b>Nə oldu</b><p>'+d[3]+'</p></div><div class="c c2 in"><b>Nə dəyişdi</b><p>'+d[4]+'</p></div><div class="c c3 in"><b>Faydası</b><p>'+d[5]+'</p></div>';
  void HD.offsetWidth;
- TM.style.transition="none";TM.style.width="0";void TM.offsetWidth;TM.style.transition="width "+DUR+"ms linear";TM.style.width="100%";
- setTimeout(function(){go((i+1)%8)},DUR)}
+ TM.style.transition="none";TM.style.width="0";void TM.offsetWidth;TM.style.transition="width "+(DUR*1.3)+"ms linear";TM.style.width="100%";
+ tm=setTimeout(function(){go((i+1)%8)},DUR)}
 go(0);
+addEventListener("message",function(e){var c=e.data&&e.data.cmd;if(c==="prev")go((cur+7)%8);if(c==="next")go((cur+1)%8)});/*STEPPABLE*/
 </script></body></html></x-embed>
   <p style="position:absolute; bottom:56px; left:128px; width:1300px; font-family:Montserrat, Arial, sans-serif; font-size:24px; color:#c9ccdb">AmCham Azərbaycan · NextGen HR Leaders · Süni İntellekt</p>
   <aside>TARİXÇƏ (4 dəq). Bu slayd “AI birdən-birə yaranmayıb” mesajını verir. Animasiya: zaman xəttində 8 dayanacaq var. Hər 8,5 saniyədən bir növbəti dayanacaq yanır və aşağıdakı kartda üç sütun açılır: “Nə oldu”, “Nə dəyişdi”, “Faydası”. Kartın altındakı narıncı xətt növbəti dayanacağa qədər qalan vaxtı göstərir. Tam dövrə təxminən 70 saniyədir, sonra yenidən başlayır. Hər dayanacaq açılanda “Faydası” sütununu öz sözlərinizlə HR-a bağlayın. • 1950 - İngilis riyaziyyatçı Alan Turing “Maşınlar düşünə bilərmi?” sualını verdi və məşhur testi təklif etdi: əgər insan yazışmada qarşısındakının maşın olduğunu ayırd edə bilmirsə, maşın “ağıllı” sayıla bilər. • 1956 - ABŞ-da Dartmouth kollecində keçirilən elmi görüşdə “artificial intelligence” termini ilk dəfə rəsmi istifadə olundu. • 1997 - IBM-in Deep Blue kompüteri dünya şahmat çempionu Harri Kasparovu matçda məğlub etdi. Amma bu, qaydaları proqramçıların yazdığı, çox sürətli hesablayan sistem idi. • 2012 - Dərin neyron şəbəkələr şəkil tanıma yarışmasında köhnə üsulları böyük fərqlə qabaqladı. Bu, “dərin öyrənmə” dövrünün başlanğıcıdır. • 2016 - Google DeepMind-ın AlphaGo proqramı Go oyununda Li Sedolu məğlub etdi. Go şahmatdan qat-qat mürəkkəbdir - sistem özü öyrənərək oynayırdı. • 2017 - Google tədqiqatçılarının “Attention Is All You Need” məqaləsi Transformer arxitekturasını təqdim etdi. ChatGPT, Claude, Gemini - hamısı bunun üzərində qurulub. • 2022 (noyabr) - ChatGPT ictimaiyyətə açıldı və çox qısa müddətdə yüz milyonlarla istifadəçiyə çatdı. • 2025+ - Agentlər dövrü: AI yalnız cavab vermir, kompüterdə, brauzerdə, kod repolarında tapşırıqları özü icra edir. Mesaj: son 10 ildə dəyişiklik sürəti kəskin artıb - HR üçün bu, bacarıqların da sürətlə yenilənməsi deməkdir.</aside>

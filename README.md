@@ -15,8 +15,10 @@ Bu, statik veb saytdır: build və ya server lazım deyil. Vercel-ə birbaşa de
 
 | Düymə | Nə edir |
 |---|---|
-| `→` `Space` `PgDn` `↓` `Enter` | Növbəti slayd |
-| `←` `PgUp` `↑` `Backspace` | Əvvəlki slayd |
+| `→` `Space` `PgDn` `Enter` | Növbəti slayd |
+| `←` `PgUp` `Backspace` | Əvvəlki slayd |
+| `↑` və ya `Z` | Avtomatik keçən animasiyada bir addım geri |
+| `↓` və ya `X` | Animasiyada bir addım irəli |
 | `Home` / `End` | İlk / son slayd |
 | `1`…`37` + `Enter` | Nömrə ilə slayda keçid |
 | `F` | Tam ekran |
@@ -37,6 +39,8 @@ Hər slaydın öz ünvanı var: `…/#11` birbaşa 11-ci slaydı açır.
 - Slaydlar `source/slides/*.html`, sıra `source/deck.json` faylındadır.
 - Dəyişiklikdən sonra: `python3 tools/build.py` → `assets/slides.js` yenilənir → commit və push.
 - `<aside>` içindəki mətn natiq qeydləridir; `<x-embed>` içindəki səhifələr canlı animasiyalardır.
+- Animasiyaların sürəti `tools/build.py` faylındakı `TIME_SCALE` ilə tənzimlənir (indi 1.3 = 30% yavaş).
+- `↑`/`↓` ilə idarə olunan animasiyalarda kodun sonunda `/*STEPPABLE*/` işarəsi və `prev`/`next` mesaj dinləyicisi var.
 
 ## Struktur
 
