@@ -1,19 +1,29 @@
 #!/usr/bin/env python3
-"""Build assets/slides.js from source/deck.json + source/slides/*.html.
+"""Build the public deck data from source/deck.json + source/slides/*.html.
 
 Usage:  python3 tools/build.py
 No external dependencies. Run it after editing any file in source/.
+
+Output: public/assets/d/{az,en}-{light,dark}.js
+- speaker notes (<aside>) are NOT included in the public build
+- English text comes from source/i18n/en.json (+ per-slide overrides below)
+- dark variants recolour the white slides and their animations
+- each file is lightly obfuscated (XOR + base64) so the deck is not plain text
 """
-import json, re, pathlib
+import json, re, pathlib, base64, hashlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "source"
-OUT = ROOT / "assets" / "slides.js"
+PUB = ROOT / "public"
+OUTDIR = PUB / "assets" / "d"
 
 # Animations wait this many times longer between their steps (1.3 = +30%)
 TIME_SCALE = 1.3
 
-# Uploaded images in the original deck -> files in assets/img
+# Obfuscation key (must match KEY in public/assets/app.js)
+KEY = b"amcham-nextgen-hr-2026"
+
+# Uploaded images in the original deck -> files in public/assets/img
 BLOBS = {
     "a6a7d053eccca6f184a25c4faeb69a0f": "assets/img/nizami.jpg",
     "8459a8db4c033556409b2f91d727a3ce": "assets/img/quiz-qr.png",
@@ -48,60 +58,168 @@ ARROWS = {
     "arrow-up": ("0 0 50 100", "15,100 35,100 35,40 50,40 25,0 0,40 15,40"),
 }
 
+# ---------- English: exact source -> replacement edits that the dictionary can't express
+EN_RAW = {
+    "llm": [
+        ('var base="Yaxşı HR menecer";', 'var base="A good HR manager";'),
+        ('[["işçilərini",46],["komandasını",31],["insanları",15],["hər",8]]', '[["listens",46],["talks",31],["reaches",15],["speaks",8]]'),
+        ('[["dinləyir",41],["inkişaf",27],["motivasiya",19],["izləyir",13]]', '[["to",52],["closely",24],["first",14],["openly",10]]'),
+        ('[["və",52],[",",24],["ki",14],[".",10]]', '[["people",41],["employees",27],["the",19],["every",13]]'),
+        ('[["onlara",38],["onların",29],["vaxtında",20],["açıq",13]]', '[["and",44],[",",30],["before",16],["then",10]]'),
+        ('[["dəstək",44],["rəy",30],["imkan",16],["inam",10]]', '[["gives",48],["offers",30],["shares",14],["acts",8]]'),
+        ('[["olur.",48],["verir.",33],["göstərir.",12],["...",7]]', '[["feedback.",48],["support.",33],["clarity.",12],["...",7]]'),
+    ],
+    "how": [
+        ('var words=["Menecer","hesabatı","direktora","göndərdi,","çünki","o,","rəqəmləri","tələb","etmişdi."];',
+         'var words=["The","manager","sent","the","report","to","the","director","because","she","needed","the","figures."];'),
+        ('var wt={"Menecer":21,"direktora":62,"rəqəmləri":9,"hesabatı":5};',
+         'var wt={"manager":21,"director":62,"figures.":9,"report":5};'),
+        ('w=="o,"', 'w=="she"'), ('w!="o,"', 'w!="she"'),
+        ('var order=["direktora","Menecer","rəqəmləri","hesabatı"];', 'var order=["director","manager","figures.","report"];'),
+        ('getElementById("w5")', 'getElementById("w9")'),
+    ],
+    "glossary": [("TERMİN ", "TERM "), ("</span>NÜMUNƏ", "</span>EXAMPLE")],
+}
+
+
+def translate(h, d):
+    def tr(s):
+        k = s.strip()
+        if k in d:
+            i = s.index(k)
+            return s[:i] + d[k] + s[i + len(k):]
+        return s
+    h = re.sub(r">([^<>]+)<", lambda m: ">" + tr(m.group(1)) + "<", h)
+    h = re.sub(r'"((?:[^"\\\n]|\\.)*)"', lambda m: '"' + tr(m.group(1)) + '"', h)
+    h = re.sub(r"'((?:[^'\\\n<>]|\\.)*)'", lambda m: "'" + tr(m.group(1)) + "'", h)
+    return h
+
+
+# ---------- dark mode: recolour white slides (by CSS property)
+DARK = {
+    "bg": {"FFFFFF": "1A1D3A", "FFF": "1A1D3A", "F7F8FC": "1A1D3A", "F2F3F8": "22264A", "E7E9F2": "2C3055",
+           "FDECEC": "3D1823", "FEEBD8": "3D2616", "FFF7F0": "2E2016", "0F1129": "080918", "1C1F3A": "0B0C1F",
+           "DCFCE7": "123A24", "FEF3C7": "3A3110", "C9CCDB": "4A4E70"},
+    "border": {"E7E9F2": "2E3256", "C9CCDB": "4A4E70", "2A2C45": "4A4E70", "FFFFFF": "2E3256", "FFF": "2E3256"},
+    "color": {"0F1129": "F2F3F8", "2A2C45": "D7D9E6", "6B6F8A": "A3A6C2", "B91C1C": "FF8A92", "C2410C": "FFB07A",
+              "166534": "86EFAC", "92400E": "FCD34D", "9A3412": "FFB07A", "16A34A": "4ADE80"},
+}
+HEX = re.compile(r"#([0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})\b")
+
+
+def recolour(val, table):
+    def r(m):
+        x = m.group(1).upper()
+        base, alpha = (x[:6], x[6:]) if len(x) == 8 else (x, "")
+        return "#" + table[base] + alpha if base in table else m.group(0)
+    return HEX.sub(r, val)
+
+
+def darken(h):
+    # the slide's own background
+    h = re.sub(r'(<section[^>]*?background:)#(?:FFFFFF|ffffff)', r"\g<1>#0F1129", h, count=1)
+
+    def prop(m):
+        p, v = m.group(1), m.group(2)
+        pl = p.lower()
+        if pl in ("color", "fill", "stroke", "caret-color", "-webkit-text-fill-color"):
+            t = DARK["color"]
+        elif "background" in pl or pl in ("stop-color",):
+            t = DARK["bg"]
+        elif "border" in pl or pl in ("outline",):
+            t = DARK["border"]
+        else:
+            return m.group(0)
+        return p + ":" + recolour(v, t)
+    h = re.sub(r"([A-Za-z-]+)\s*:\s*([^;\"'{}<>]*#[0-9A-Fa-f]{3,8}[^;\"'{}<>]*)", prop, h)
+    # JS style assignments: el.style.color="#0F1129"
+    h = re.sub(r'(\.style\.color\s*=\s*")([^"]+)"', lambda m: m.group(1) + recolour(m.group(2), DARK["color"]) + '"', h)
+    h = re.sub(r'(\.style\.background(?:Color)?\s*=\s*")([^"]+)"', lambda m: m.group(1) + recolour(m.group(2), DARK["bg"]) + '"', h)
+    return h
+
+
+def obfuscate(text):
+    b = text.encode("utf-8")
+    x = bytes(c ^ KEY[i % len(KEY)] for i, c in enumerate(b))
+    return base64.b64encode(x).decode("ascii")
+
 
 def build():
     deck = json.loads((SRC / "deck.json").read_text(encoding="utf-8"))
-    slides, embeds = [], []
-
-    def embed_sub(m):
-        style, doc = m.group(1), m.group(2)
-        steps = ' data-steps="1"' if "/*STEPPABLE*/" in doc else ""
-        # Slow every timer-based animation down by TIME_SCALE (typing/counter intervals keep their speed)
-        doc = doc.replace("<head>", "<head><script>(function(){var s=window.setTimeout;window.setTimeout=function(f,d){return s(f,(+d||0)*%s)}})();</script>" % TIME_SCALE, 1)
-        embeds.append(doc)
-        return ('<iframe class="xe"%s data-e="%d" style="%s;border:0;background:transparent" '
-                'sandbox="allow-scripts" scrolling="no" tabindex="-1" title="animasiya"></iframe>'
-                % (steps, len(embeds) - 1, style))
-
-    def icon_sub(m):
-        name, style = m.group(1), m.group(2)
-        body = ICONS.get(name, ICONS["Star"])
-        return ('<svg class="xi" style="%s;flex:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-                'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>'
-                % (style, body))
-
-    def shape_sub(m):
-        kind, style = m.group(1), m.group(2)
-        color = "#E4202E"
-        cm = re.search(r"background(?:-color)?\s*:\s*([^;]+)", style)
-        if cm:
-            color = cm.group(1).strip()
-            style = style.replace(cm.group(0), "")
-        vb, pts = ARROWS.get(kind, ARROWS["arrow-right"])
-        return ('<svg class="xs" style="%s;flex:none" viewBox="%s" preserveAspectRatio="none" aria-hidden="true">'
-                '<polygon points="%s" fill="%s"/></svg>' % (style, vb, pts, color))
-
+    en = json.loads((SRC / "i18n" / "en.json").read_text(encoding="utf-8"))
+    raw = {}
     for sid in deck["order"]:
         f = SRC / "slides" / (sid + ".html")
-        if not f.exists():
-            continue
-        h = f.read_text(encoding="utf-8")
-        notes = ""
-        am = re.search(r"<aside>(.*?)</aside>", h, re.S)
-        if am:
-            notes = am.group(1).strip()
-            h = h[:am.start()] + h[am.end():]
-        h = re.sub(r'<x-embed style="([^"]*)">(.*?)</x-embed>', embed_sub, h, flags=re.S)
-        h = re.sub(r'<x-icon name="([A-Za-z]+)" style="([^"]*)"></x-icon>', icon_sub, h)
-        h = re.sub(r'<x-shape kind="([a-z-]+)" style="([^"]*)"></x-shape>', shape_sub, h)
-        for bid, path in BLOBS.items():
-            h = h.replace("/_blob/" + bid, path)
-        h = h.replace("<section ", '<section class="slide" ', 1).strip()
-        slides.append({"id": sid, "html": h, "notes": notes})
+        if f.exists():
+            h = f.read_text(encoding="utf-8")
+            h = re.sub(r"<aside>.*?</aside>", "", h, flags=re.S)   # notes never leave source/
+            raw[sid] = h
 
-    data = {"title": deck.get("title", ""), "slides": slides, "embeds": embeds}
-    OUT.write_text("window.DECK=" + json.dumps(data, ensure_ascii=False) + ";\n", encoding="utf-8")
-    print("built %d slides, %d animations -> %s" % (len(slides), len(embeds), OUT.relative_to(ROOT)))
+    OUTDIR.mkdir(parents=True, exist_ok=True)
+    sizes = []
+    for lang in ("az", "en"):
+        for mode in ("light", "dark"):
+            slides, embeds = [], []
+
+            def embed_sub(m):
+                style, doc = m.group(1), m.group(2)
+                steps = ' data-steps="1"' if "/*STEPPABLE*/" in doc else ""
+                doc = doc.replace("/*STEPPABLE*/", "")
+                doc = doc.replace("<head>", "<head><script>(function(){var s=window.setTimeout;window.setTimeout=function(f,d){return s(f,(+d||0)*%s)}})();</script>" % TIME_SCALE, 1)
+                doc = doc.replace("<head>", "<head><style>*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}</style>"
+                                  "<script>['contextmenu','copy','cut','dragstart','selectstart'].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault()})});</script>", 1)
+                embeds.append(doc)
+                return ('<iframe class="xe"%s data-e="%d" style="%s;border:0;background:transparent" '
+                        'sandbox="allow-scripts" scrolling="no" tabindex="-1" title="animation"></iframe>'
+                        % (steps, len(embeds) - 1, style))
+
+            def icon_sub(m):
+                name, style = m.group(1), m.group(2)
+                body = ICONS.get(name, ICONS["Star"])
+                return ('<svg class="xi" style="%s;flex:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>'
+                        % (style, body))
+
+            def shape_sub(m):
+                kind, style = m.group(1), m.group(2)
+                color = "#E4202E"
+                cm = re.search(r"background(?:-color)?\s*:\s*([^;]+)", style)
+                if cm:
+                    color = cm.group(1).strip()
+                    style = style.replace(cm.group(0), "")
+                vb, pts = ARROWS.get(kind, ARROWS["arrow-right"])
+                return ('<svg class="xs" style="%s;flex:none" viewBox="%s" preserveAspectRatio="none" aria-hidden="true">'
+                        '<polygon points="%s" fill="%s"/></svg>' % (style, vb, pts, color))
+
+            for sid, h in raw.items():
+                if lang == "en":
+                    for a, b in EN_RAW.get(sid, []):
+                        if a not in h:
+                            raise SystemExit("EN override not found in %s: %s" % (sid, a[:60]))
+                        h = h.replace(a, b)
+                    h = translate(h, en)
+                light = bool(re.search(r"<section[^>]*background:#(?:FFFFFF|ffffff)", h))
+                if mode == "dark" and light:
+                    h = darken(h)
+                h = re.sub(r'<x-embed style="([^"]*)">(.*?)</x-embed>', embed_sub, h, flags=re.S)
+                h = re.sub(r'<x-icon name="([A-Za-z]+)" style="([^"]*)"></x-icon>', icon_sub, h)
+                h = re.sub(r'<x-shape kind="([a-z-]+)" style="([^"]*)"></x-shape>', shape_sub, h)
+                for bid, path in BLOBS.items():
+                    h = h.replace("/_blob/" + bid, path)
+                h = re.sub(r"<img ", '<img draggable="false" ', h)
+                cls = "slide" + (" lt" if light else "")
+                h = h.replace("<section ", '<section class="%s" ' % cls, 1).strip()
+                slides.append({"id": sid, "html": h})
+
+            data = {"slides": slides, "embeds": embeds}
+            payload = obfuscate(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+            out = OUTDIR / ("%s-%s.js" % (lang, mode))
+            out.write_text("window.__deck&&window.__deck(\"%s\");\n" % payload, encoding="ascii")
+            sizes.append("%s %dKB" % (out.name, out.stat().st_size // 1024))
+    # cache-busting version for the loader
+    ver = hashlib.sha1("".join((OUTDIR / n).read_text() for n in sorted(p.name for p in OUTDIR.glob("*.js"))).encode()).hexdigest()[:8]
+    (PUB / "assets" / "ver.js").write_text('window.__V="%s";\n' % ver, encoding="ascii")
+    print("built %d slides x 4 variants (%s), notes removed, v=%s" % (len(raw), ", ".join(sizes), ver))
 
 
 if __name__ == "__main__":
